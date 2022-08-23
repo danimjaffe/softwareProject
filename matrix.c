@@ -6,7 +6,7 @@
 typedef struct {
     int rows;
     int cols;
-    double ** data;
+    double * data;
 } matrix;
 
 matrix * newMatrix(int rows, int cols) {
@@ -33,16 +33,11 @@ matrix * newMatrix(int rows, int cols) {
  * is NULL.
  */
 int deleteMatrix(matrix * mtx) {
-    int i;
     if (!mtx) return -1;
     // free mtx's data
     assert (mtx->data);
-    for (i = 0; i < mtx->rows; i++)
-    {
-        free(mtx->data[i]);
-    }
     free(mtx->data);
-    
+
     // free mtx itself
     free(mtx);
     return 0;
