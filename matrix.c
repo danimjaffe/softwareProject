@@ -80,44 +80,29 @@ int setElement(matrix * mtx, int row, int col, double val)
     return 0;
 }
 
-/* Sets the reference val to the value of the (row, col)
- * element of mtx.  Returns 0 if successful, -1 if either
- * mtx or val is NULL, and -2 if row or col are outside of
- * the dimensions of mtx.
+/* returns the element in mtx[row][col]
  */
-int getElement(matrix * mtx, int row, int col,
-               double * val) {
-    if (!mtx || !val) return -1;
-    assert (mtx->data);
-    if (row <= 0 || row > mtx->rows ||
-        col <= 0 || col > mtx->cols)
-        return -2;
-
-    *val = ELEM(mtx, row, col);
-    return 0;
+double getElement(matrix * mtx, int row, int col) {
+    return ELEM(mtx, row, col);
 }
 
-/* Sets the reference n to the number of rows of mtx.
- * Returns 0 if successful and -1 if mtx or n is NULL.
+/* returns number of rows in matrix
  */
-int nRows(matrix * mtx, int * n) {
-    if (!mtx || !n) return -1;
-    *n = mtx->rows;
-    return 0;
+int nRows(matrix * mtx) {
+    return mtx->rows;
 }
 
-/* Sets the reference n to the number of columns of mtx.
- * Returns 0 if successful and -1 if mtx is NULL.
+/* returns number of columns in matrix
  */
 int nCols(matrix * mtx, int * n) {
-    if (!mtx || !n) return -1;
-    *n = mtx->rows;
-    return 0;
+    return mtx->rows;
 }
 
 /* Prints the matrix to stdout.  Returns 0 if successful
  * and -1 if mtx is NULL.
  */
+
+//TODO: fix this function
 int printMatrix(matrix * mtx) {
     if (!mtx) return -1;
 
@@ -136,6 +121,9 @@ int printMatrix(matrix * mtx) {
     return 0;
 }
 
+//TODO: might need to delete this function
+//TODO: if not we need to change it return the transposed matrix and not edit the parameter out
+
 /* Writes the transpose of matrix in into matrix out.
  * Returns 0 if successful, -1 if either in or out is NULL,
  * and -2 if the dimensions of in and out are incompatible.
@@ -151,6 +139,9 @@ int transpose(matrix * in, matrix * out) {
             ELEM(out, col, row) = ELEM(in, row, col);
     return 0;
 }
+
+//TODO: might need to delete this function
+//TODO: if not we need to change it return the transposed matrix and not edit the parameter sum
 
 /* Writes the sum of matrices mtx1 and mtx2 into matrix
  * sum. Returns 0 if successful, -1 if any of the matrices
@@ -172,6 +163,8 @@ int sum(matrix * mtx1, matrix * mtx2, matrix * sum) {
                     ELEM(mtx1, row, col) + ELEM(mtx2, row, col);
     return 0;
 }
+
+//TODO: if not we need to change it return the transposed matrix and not edit the parameter prod
 
 /* Writes the product of matrices mtx1 and mtx2 into matrix
  * prod.  Returns 0 if successful, -1 if any of the
@@ -196,6 +189,9 @@ int product(matrix * mtx1, matrix * mtx2, matrix * prod) {
     return 0;
 }
 
+//TODO: might need to delete this function
+//TODO: if not we need to change it return the transposed matrix and not edit the parameter prod
+
 /* Writes the dot product of vectors v1 and v2 into
  * reference prod.  Returns 0 if successful, -1 if any of
  * v1, v2, or prod are NULL, -2 if either matrix is not a
@@ -214,6 +210,8 @@ int dotProduct(matrix * v1, matrix * v2, double * prod) {
     return 0;
 }
 
+//TODO: if not we need to change it return the transposed matrix and not edit the parameter m
+
 int identity(matrix * m) {
     if (!m || m->rows != m->cols) return -1;
     int row, col;
@@ -226,9 +224,13 @@ int identity(matrix * m) {
     return 0;
 }
 
+//TODO: might need to delete this function
+
 int isSquare(matrix * mtx) {
     return mtx && mtx->rows == mtx->cols;
 }
+
+//TODO: might need to delete this function
 
 int isDiagonal(matrix * mtx) {
     if (!isSquare(mtx)) return 0;
@@ -242,6 +244,8 @@ int isDiagonal(matrix * mtx) {
     return 1;
 }
 
+//TODO: might need to delete this function
+
 int isUpperTriangular(matrix * mtx) {
     if (!isSquare(mtx)) return 0;
     int row, col;
@@ -252,6 +256,8 @@ int isUpperTriangular(matrix * mtx) {
                 return 0;
     return 1;
 }
+
+//TODO: might need to delete this function
 
 int diagonal(matrix * v, matrix * mtx) {
     if (!v || !mtx ||
