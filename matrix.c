@@ -94,7 +94,7 @@ int nRows(matrix * mtx) {
 
 /* returns number of columns in matrix
  */
-int nCols(matrix * mtx, int * n) {
+int nCols(matrix * mtx) {
     return mtx->rows;
 }
 
