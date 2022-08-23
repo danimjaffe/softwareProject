@@ -28,3 +28,22 @@ matrix * newMatrix(int rows, int cols) {
 
     return m;
 }
+
+/* Deletes a matrix.  Returns 0 if successful and -1 if mtx
+ * is NULL.
+ */
+int deleteMatrix(matrix * mtx) {
+    int i;
+    if (!mtx) return -1;
+    // free mtx's data
+    assert (mtx->data);
+    for (i = 0; i < mtx->rows; i++)
+    {
+        free(mtx->data[i]);
+    }
+    free(mtx->data);
+    
+    // free mtx itself
+    free(mtx);
+    return 0;
+}
