@@ -2,19 +2,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "matrix.h"
 
-typedef struct {
-    int rows;
-    int cols;
-    double * data;
-} matrix;
 
 /* Creates a ``rows by cols'' matrix with all values 0.
  * Returns NULL if rows <= 0 or cols <= 0 and otherwise a
  * pointer to the new matrix.
  */
 matrix * newMatrix(int rows, int cols) {
-
     matrix * m;
     int i;
     if (rows <= 0 || cols <= 0) return NULL;
@@ -56,9 +51,7 @@ int deleteMatrix(matrix * mtx) {
 /* Copies a matrix.  Returns NULL if mtx is NULL.
  */
 matrix * copyMatrix(matrix * mtx) {
-
     matrix * cp;
-
     if (!mtx) return NULL;
 
     /* create a new matrix to hold the copy */
