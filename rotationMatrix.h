@@ -3,14 +3,16 @@
 
 #include "matrix.h"
 
-typedef struct {
+typedef struct
+{
     int pivotRow;
     int pivotCol;
     double c;
     double s;
-    matrix * mtx;
+    matrix *mtx;
 } rotationMatrix;
 
-rotationMatrix * newRotationMatrix(matrix* mtx, int pivotRow, int pivotCol,double c, double s);
+rotationMatrix *newRotationMatrix(matrix *mtx, int pivotRow, int pivotCol, double c, double s);
+int deleteRotationMatrix(rotationMatrix * rotMtx);
 
 #endif

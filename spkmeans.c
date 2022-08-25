@@ -11,13 +11,14 @@ matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx);
 matrix *normailzedGraphLaplacian(matrix * W, matrix * D);
 rotationMatrix * createRotationMatrixP(matrix * A);
 matrix * transformAToATag(matrix * A, rotationMatrix * P);
+int checkConvergence (matrix * A, matrix * ATag);
 
 int main()
 
 {
     int nRows, nCols,i,j;
     matrix * data,* W,* D, *Lnorm;
-    rotationMatrix * P;
+    /*rotationMatrix * P;*/
     
     nRows=4;
     nCols=3;
@@ -34,7 +35,7 @@ int main()
     W = weightedAdjencyMatrix(data);
     D = inverseSqrtDiagonalDegreeMatrix(W);
     Lnorm = normailzedGraphLaplacian(W,D);
-    P = createRotationMatrixP(Lnorm);
+    /*P = createRotationMatrixP(Lnorm);*/
     return 0;
 }
 
@@ -110,20 +111,33 @@ matrix *normailzedGraphLaplacian(matrix * W, matrix * D){
 }
 
 void jacobi(matrix * A){
-    matrix * temp, * ATag;
+    int rows = nRows(A);
+    int cols = nCols(A); 
+    matrix * temp, * ATag, *V;
     int convergence = isDiagonal(A);
     int maxRotations=100;
     int rotationNumber=1;
     rotationMatrix * P;
+
+    V = newMatrix(rows,cols);
+    identity(V);
+
     /*TODO: case when initial matrix is diagonal*/
     while (convergence!=1 && rotationNumber<=maxRotations)
     {
         P = createRotationMatrixP(A);
+
         ATag = transformAToATag(A,P);
         convergence = checkConvergence(A,ATag);
         deleteMatrix(A);
         A = ATag;
-        free(P);
+
+        temp = newMatrix(rows,cols);
+        product(V,P->mtx,temp);
+        V = temp;
+        deleteMatrix(temp);
+
+        deleteRotationMatrix(P);
         rotationNumber++;
     }
 
@@ -133,6 +147,7 @@ void jacobi(matrix * A){
 */
 rotationMatrix * createRotationMatrixP(matrix * A){
     rotationMatrix * P;
+    matrix * mtx;
     int i,j,pivotRow,pivotCol;
     double maxVal, theta, signTheta, t, c, s;
     int rows = nRows(A);
@@ -166,7 +181,14 @@ rotationMatrix * createRotationMatrixP(matrix * A){
 
     /* Create P rotation matrix based on c and s values*/
 
-    P = newRotationMatrix(pivotRow,pivotCol,c,s);
+    mtx = newMatrix(rows,cols);
+    identity(mtx);
+    setElement(mtx,pivotRow,pivotRow,c);
+    setElement(mtx,pivotCol,pivotCol,c);
+    setElement(mtx,pivotRow,pivotCol,s);
+    setElement(mtx,pivotCol,pivotRow,-s);
+
+    P = newRotationMatrix(mtx,pivotRow,pivotCol,c,s);
     return P;
 
 }
@@ -180,7 +202,7 @@ matrix * transformAToATag(matrix * A, rotationMatrix * P){
     matrix * ATag;
     double ATag_ri,ATag_rj,ATag_ii,ATag_jj,ATag_ij=0.0;
     double c = P->c,s=P->s;
-    newMatrix(rows,cols);
+    ATag = newMatrix(rows,cols);
 
     for (r = 1; r <=rows; r++)
     {
