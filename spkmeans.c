@@ -5,6 +5,7 @@
 #include <assert.h>
 #include "matrix.h"
 #include "rotationMatrix.h"
+#include "jacobi.h"
 
 matrix *weightedAdjacencyMatrix(matrix *mat);
 
@@ -13,6 +14,8 @@ matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx);
 matrix *normailzedGraphLaplacian(matrix *W, matrix *D);
 
 rotationMatrix *createRotationMatrixP(matrix *A);
+
+jacobi_s * jacobi(matrix *A);
 
 matrix *transformAToATag(matrix *A, rotationMatrix *P);
 
@@ -116,8 +119,9 @@ matrix *normailzedGraphLaplacian(matrix *W, matrix *D)
     return Lnorm;
 }
 
-void jacobi(matrix *A)
+jacobi_s * jacobi(matrix *A)
 {
+    jacobi_s * j;
     int rows = nRows(A);
     int cols = nCols(A);
     matrix *temp, *ATag, *V;
@@ -146,6 +150,9 @@ void jacobi(matrix *A)
         deleteRotationMatrix(P);
         rotationNumber++;
     }
+    
+    j = newJacobi(A,V);
+    return j;
 }
 
 /* Creates rotation matrix P from initial matrix A
