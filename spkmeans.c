@@ -6,7 +6,7 @@
 #include "matrix.h"
 #include "rotationMatrix.h"
 
-matrix *weightedAdjencyMatrix(matrix *mat);
+matrix *weightedAdjacencyMatrix(matrix *mat);
 
 matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx);
 
@@ -31,7 +31,7 @@ int main() {
         }
 
     }
-    W = weightedAdjencyMatrix(data);
+    W = weightedAdjacencyMatrix(data);
     D = inverseSqrtDiagonalDegreeMatrix(W);
     Lnorm = normailzedGraphLaplacian(W, D);
     P = createRotationMatrixP(Lnorm);
@@ -43,7 +43,7 @@ int main() {
 /* Creates and returns the weighted adjacency matrix of mat
 */
 
-matrix *weightedAdjencyMatrix(matrix *mat) {
+matrix *weightedAdjacencyMatrix(matrix *mat) {
     int nDataPoints = nRows(mat);
     int i, j;
     matrix *weighted;
