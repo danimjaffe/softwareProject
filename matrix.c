@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
 #include "matrix.h"
 
 
@@ -113,7 +114,7 @@ int printMatrix(matrix * mtx) {
             /*  - either a - if negative or a space if positive */
             /*  - at least 3 spaces before the . */
             /*  - precision to the hundredths place */
-            printf("% 6.2f ", ELEM(mtx, row, col));
+            printf("%f ", ELEM(mtx, row, col));
         }
         /* separate rows by newlines */
         printf("\n");
@@ -161,6 +162,30 @@ int sum(matrix * mtx1, matrix * mtx2, matrix * sum) {
         for (row = 1; row <= mtx1->rows; row++)
             ELEM(sum, row, col) =
                     ELEM(mtx1, row, col) + ELEM(mtx2, row, col);
+    return 0;
+}
+
+
+/*TODO: if not we need to change it return the transposed matrix and not edit the parameter sum */
+
+/* Writes the sub of matrices mtx1 from mtx2 into matrix
+ * sub. Returns 0 if successful, -1 if any of the matrices
+ * are NULL, and -2 if the dimensions of the matrices are
+ * incompatible.
+ */
+int sub(matrix * mtx1, matrix * mtx2, matrix * sub) {
+    int row, col;
+    if (!mtx1 || !mtx2 || !sub) return -1;
+    if (mtx1->rows != mtx2->rows ||
+        mtx1->rows != sub->rows ||
+        mtx1->cols != mtx2->cols ||
+        mtx1->cols != sub->cols)
+        return -2;
+
+    for (col = 1; col <= mtx1->cols; col++)
+        for (row = 1; row <= mtx1->rows; row++)
+            ELEM(sub, row, col) =
+                    ELEM(mtx1, row, col) - ELEM(mtx2, row, col);
     return 0;
 }
 
@@ -272,6 +297,21 @@ int diagonal(matrix * v, matrix * mtx) {
             else
                 ELEM(mtx, row, col) = 0.0;
     return 0;
+}
+
+/* calculates eucledean distance between rows in mat based in row indices i,j
+*/
+
+double distanceBetweenVectors(matrix * mat,double i, double j) {
+    double dis = 0.0;
+    double temp;
+    int k;
+    for (k = 1; k <= mat->cols; k++) {
+        temp = getElement(mat,i,k)-getElement(mat,j,k);
+        dis = dis + temp*temp;
+    }
+    return sqrt(dis);
+
 }
 
 /*int main() {
