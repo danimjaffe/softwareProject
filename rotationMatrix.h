@@ -2,6 +2,10 @@
 #define SOFTWAREPROJECT_ROTATION_MATRIX_H
 
 #include "matrix.h"
+#include <stdlib.h>
+#include <string.h>
+#include <assert.h>
+#include <stdio.h>
 
 typedef struct
 {
