@@ -20,7 +20,8 @@ int product(matrix * mtx1, matrix * mtx2, matrix * prod);
 int dotProduct(matrix * v1, matrix * v2, double * prod);
 int identity(matrix * m);
 int isDiagonal(matrix * mtx);
-double distanceBetweenVectors(matrix * mat,double i, double j);
+double euclideanNormBetweenRows(matrix * mtx, double i, double j);
+double euclideanNorm(matrix * mat,double i, double j);
 
 
 #endif /*SOFTWAREPROJECT_MATRIX_H*/

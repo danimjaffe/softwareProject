@@ -10,24 +10,24 @@
  * Returns NULL if rows <= 0 or cols <= 0 and otherwise a
  * pointer to the new matrix.
  */
-matrix * newMatrix(int rows, int cols) {
-    matrix * m;
+matrix *newMatrix(int rows, int cols) {
+    matrix *m;
     int i;
     if (rows <= 0 || cols <= 0) return NULL;
 
     /* allocate a matrix structure*/
     m = (matrix *) malloc(sizeof(matrix));
-    assert(m!=NULL);
+    assert(m != NULL);
 
     /* set dimensions*/
     m->rows = rows;
     m->cols = cols;
 
     /* allocate a double array of length rows * cols */
-    m->data = (double *) malloc(rows*cols*sizeof(double));
+    m->data = (double *) malloc(rows * cols * sizeof(double));
     assert(m->data);
     /* set all data to 0 */
-    for (i = 0; i < rows*cols; i++)
+    for (i = 0; i < rows * cols; i++)
         m->data[i] = 0.0;
 
     return m;
@@ -36,7 +36,7 @@ matrix * newMatrix(int rows, int cols) {
 /* Deletes a matrix.  Returns 0 if successful and -1 if mtx
  * is NULL.
  */
-int deleteMatrix(matrix * mtx) {
+int deleteMatrix(matrix *mtx) {
     if (!mtx) return -1;
     /* free mtx's data */
     assert (mtx->data);
@@ -51,8 +51,8 @@ int deleteMatrix(matrix * mtx) {
 
 /* Copies a matrix.  Returns NULL if mtx is NULL.
  */
-matrix * copyMatrix(matrix * mtx) {
-    matrix * cp;
+matrix *copyMatrix(matrix *mtx) {
+    matrix *cp;
     if (!mtx) return NULL;
 
     /* create a new matrix to hold the copy */
@@ -69,8 +69,7 @@ matrix * copyMatrix(matrix * mtx) {
  * successful, -1 if mtx is NULL, and -2 if row or col are
  * outside of the dimensions of mtx.
  */
-int setElement(matrix * mtx, int row, int col, double val)
-{
+int setElement(matrix *mtx, int row, int col, double val) {
     if (!mtx) return -1;
     assert (mtx->data);
     if (row <= 0 || row > mtx->rows ||
@@ -83,19 +82,19 @@ int setElement(matrix * mtx, int row, int col, double val)
 
 /* returns the element in mtx[row][col]
  */
-double getElement(matrix * mtx, int row, int col) {
+double getElement(matrix *mtx, int row, int col) {
     return ELEM(mtx, row, col);
 }
 
 /* returns number of rows in matrix
  */
-int nRows(matrix * mtx) {
+int nRows(matrix *mtx) {
     return mtx->rows;
 }
 
 /* returns number of columns in matrix
  */
-int nCols(matrix * mtx) {
+int nCols(matrix *mtx) {
     return mtx->rows;
 }
 
@@ -104,7 +103,7 @@ int nCols(matrix * mtx) {
  */
 
 /*TODO: fix this function */
-int printMatrix(matrix * mtx) {
+int printMatrix(matrix *mtx) {
     int row, col;
     if (!mtx) return -1;
 
@@ -129,7 +128,7 @@ int printMatrix(matrix * mtx) {
  * Returns 0 if successful, -1 if either in or out is NULL,
  * and -2 if the dimensions of in and out are incompatible.
  */
-int transpose(matrix * in, matrix * out) {
+int transpose(matrix *in, matrix *out) {
     int row, col;
     if (!in || !out) return -1;
     if (in->rows != out->cols || in->cols != out->rows)
@@ -149,7 +148,7 @@ int transpose(matrix * in, matrix * out) {
  * are NULL, and -2 if the dimensions of the matrices are
  * incompatible.
  */
-int sum(matrix * mtx1, matrix * mtx2, matrix * sum) {
+int sum(matrix *mtx1, matrix *mtx2, matrix *sum) {
     int row, col;
     if (!mtx1 || !mtx2 || !sum) return -1;
     if (mtx1->rows != mtx2->rows ||
@@ -173,7 +172,7 @@ int sum(matrix * mtx1, matrix * mtx2, matrix * sum) {
  * are NULL, and -2 if the dimensions of the matrices are
  * incompatible.
  */
-int sub(matrix * mtx1, matrix * mtx2, matrix * sub) {
+int sub(matrix *mtx1, matrix *mtx2, matrix *sub) {
     int row, col;
     if (!mtx1 || !mtx2 || !sub) return -1;
     if (mtx1->rows != mtx2->rows ||
@@ -196,7 +195,7 @@ int sub(matrix * mtx1, matrix * mtx2, matrix * sub) {
  * matrices are NULL, and -2 if the dimensions of the
  * matrices are incompatible.
  */
-int product(matrix * mtx1, matrix * mtx2, matrix * prod) {
+int product(matrix *mtx1, matrix *mtx2, matrix *prod) {
     int row, col, k;
     if (!mtx1 || !mtx2 || !prod) return -1;
     if (mtx1->cols != mtx2->rows ||
@@ -223,7 +222,7 @@ int product(matrix * mtx1, matrix * mtx2, matrix * prod) {
  * vector, and -3 if the vectors are of incompatible
  * dimensions.
  */
-int dotProduct(matrix * v1, matrix * v2, double * prod) {
+int dotProduct(matrix *v1, matrix *v2, double *prod) {
     int i;
     if (!v1 || !v2 || !prod) return -1;
     if (v1->cols != 1 || v2->cols != 1) return -2;
@@ -237,7 +236,7 @@ int dotProduct(matrix * v1, matrix * v2, double * prod) {
 
 /*TODO: if not we need to change it return the transposed matrix and not edit the parameter m */
 
-int identity(matrix * m) {
+int identity(matrix *m) {
     int row, col;
     if (!m || m->rows != m->cols) return -1;
     for (col = 1; col <= m->cols; col++)
@@ -251,13 +250,13 @@ int identity(matrix * m) {
 
 /*TODO: might need to delete this function */
 
-int isSquare(matrix * mtx) {
+int isSquare(matrix *mtx) {
     return mtx && mtx->rows == mtx->cols;
 }
 
 /*TODO: might need to delete this function */
 
-int isDiagonal(matrix * mtx) {
+int isDiagonal(matrix *mtx) {
     int row, col;
     if (!isSquare(mtx)) return 0;
     for (col = 1; col <= mtx->cols; col++)
@@ -271,12 +270,12 @@ int isDiagonal(matrix * mtx) {
 
 /*TODO: might need to delete this function */
 
-int isUpperTriangular(matrix * mtx) {
+int isUpperTriangular(matrix *mtx) {
     int row, col;
     if (!isSquare(mtx)) return 0;
     /* looks at positions below the diagonal */
     for (col = 1; col <= mtx->cols; col++)
-        for (row = col+1; row <= mtx->rows; row++)
+        for (row = col + 1; row <= mtx->rows; row++)
             if (ELEM(mtx, row, col) != 0.0)
                 return 0;
     return 1;
@@ -284,7 +283,7 @@ int isUpperTriangular(matrix * mtx) {
 
 /*TODO: might need to delete this function */
 
-int diagonal(matrix * v, matrix * mtx) {
+int diagonal(matrix *v, matrix *mtx) {
     int row, col;
     if (!v || !mtx ||
         v->cols > 1 || v->rows != mtx->rows ||
@@ -299,20 +298,20 @@ int diagonal(matrix * v, matrix * mtx) {
     return 0;
 }
 
-/* calculates eucledean distance between rows in mat based in row indices i,j
+/* calculates Euclidean Norm between the vectors in rows i, j in the given mtx.
 */
 
-double distanceBetweenVectors(matrix * mat,double i, double j) {
+double euclideanNormBetweenRows(matrix *mtx, double i, double j) {
     double dis = 0.0;
     double temp;
     int k;
-    for (k = 1; k <= mat->cols; k++) {
-        temp = getElement(mat,i,k)-getElement(mat,j,k);
-        dis = dis + temp*temp;
+    for (k = 1; k <= mtx->cols; k++) {
+        temp = getElement(mtx, i, k) - getElement(mtx, j, k);
+        dis = dis + temp * temp;
     }
     return sqrt(dis);
-
 }
+
 
 /*int main() {
    matrix * A, * Ac, * B, * c, * d, * M, * ct, * mdp;
