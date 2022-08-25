@@ -1,10 +1,4 @@
-#include <assert.h>
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <math.h>
 #include "matrix.h"
-
 
 /* Creates a ``rows by cols'' matrix with all values 0.
  * Returns NULL if rows <= 0 or cols <= 0 and otherwise a
