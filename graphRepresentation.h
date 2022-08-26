@@ -27,4 +27,6 @@ void getRotationMatrixSC(matrix *A, int pivotRow, int pivotCol, double *s, doubl
 
 void jacobiAlgo(matrix **A, matrix **V);
 
+int determineK(matrix * A);
+
 #endif
