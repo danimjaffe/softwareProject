@@ -18,11 +18,11 @@ matrix *extractData(char *fileName);
 
 void wamGoal(matrix *data, matrix **W);
 
-void ddgGoal(matrix *data, matrix *W, matrix **D);
+void ddgGoal(matrix *data, matrix **W, matrix **D);
 
-void lnormGoal(matrix *data, matrix *W, matrix *D, matrix **lNorm);
+void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm);
 
-void jacobiGoal(matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V);
+void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
 void runGoalC(char *goal, matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V);
 

@@ -314,7 +314,7 @@ double euclideanNormBetweenRows(matrix *mtx, double i, double j) {
  * and -2 if the dimensions of the matrices are
  * incompatible.
  */
-int printDiagonal(matrix * mtx) {
+int printDiagonal(matrix *mtx) {
     int rows = nRows(mtx), i;
     if (!isSquare(mtx)) return -2;
     for (i = 1; i <= rows; i++) {

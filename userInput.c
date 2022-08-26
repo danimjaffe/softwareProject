@@ -35,41 +35,40 @@ void wamGoal(matrix *data, matrix **W) {
     *W = weightedAdjacencyMatrix(data);
 }
 
-void ddgGoal(matrix *data, matrix *W, matrix **D) {
-    wamGoal(data, &W);
-    *D = inverseSqrtDiagonalDegreeMatrix(W);
+void ddgGoal(matrix *data, matrix **W, matrix **D) {
+    wamGoal(data, W);
+    *D = inverseSqrtDiagonalDegreeMatrix(*W);
 }
 
-void lnormGoal(matrix *data, matrix *W, matrix *D, matrix **lNorm) {
-    ddgGoal(data, W, &D);
-    *lNorm = normalizedGraphLaplacian(W, D);
+void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm) {
+    ddgGoal(data, W, D);
+    *lNorm = normalizedGraphLaplacian(*W, *D);
 }
 
-void jacobiGoal(matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V) {
-    lnormGoal(data, W, D, &lNorm);
-    jacobiAlgo(&lNorm, &V);
+void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
+    lnormGoal(data, W, D, lNorm);
+    jacobiAlgo(lNorm, V);
 }
 
-void spkGoal(matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V) {
-    lnormGoal(data, W, D, &lNorm);
-    jacobiAlgo(&lNorm, &V);
+void spkGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
+    lnormGoal(data, W, D, lNorm);
+    jacobiAlgo(lNorm, V);
     /*TODO - continue algorithm */
 }
 
-
 void runGoalC(char *goal, matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V) {
-    matrix * res=NULL;
+    matrix *res = NULL;
     if (strcmp(goal, "wam") == 0) {
         wamGoal(data, &W);
         res = W;
     } else if (strcmp(goal, "ddg") == 0) {
-        ddgGoal(data, W, &D);
+        ddgGoal(data, &W, &D);
         res = D;
     } else if (strcmp(goal, "lnorm") == 0) {
-        lnormGoal(data, W, D, &lNorm);
+        lnormGoal(data, &W, &D, &lNorm);
         res = lNorm;
     } else if (strcmp(goal, "jacobi") == 0) {
-        jacobiGoal(data, W, D, lNorm, V);
+        jacobiGoal(data, &W, &D, &lNorm, &V);
         printDiagonal(V);
         res = lNorm;
     } else {
@@ -81,7 +80,7 @@ void runGoalC(char *goal, matrix *data, matrix *W, matrix *D, matrix *lNorm, mat
 void runGoalPy(char *goal, matrix *data) {
     matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL;
     if (strcmp(goal, "spk") == 0) {
-        spkGoal(data, W, D, lNorm, V);
+        spkGoal(data, &W, &D, &lNorm, &V);
     } else {
         runGoalC(goal, data, W, D, lNorm, V);
     }

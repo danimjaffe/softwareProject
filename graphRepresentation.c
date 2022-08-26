@@ -189,20 +189,18 @@ int checkOffConvergence(matrix *A, matrix *ATag) {
 
 /*Determines k based on decreasing ordered eigenvalues*/
 
-int determineK(matrix * A){
-    int i, rows=nRows(A);
-    int n=floor(rows/2), k=1;
-    double temp,maxDelta = 0.0;
+int determineK(matrix *A) {
+    int i, rows = nRows(A);
+    int n = floor(rows / 2), k = 1;
+    double temp, maxDelta = 0.0;
 
-    for (i = 1; i <=n-1; i++)
-    {
-        temp = fabs(getElement(A,i,i)-getElement(A,i+1,i+1));
-        if (temp>maxDelta)
-        {
-            maxDelta=temp;
-            k=i;
+    for (i = 1; i <= n - 1; i++) {
+        temp = fabs(getElement(A, i, i) - getElement(A, i + 1, i + 1));
+        if (temp > maxDelta) {
+            maxDelta = temp;
+            k = i;
         }
-        
+
     }
-    return k;    
+    return k;
 }
