@@ -63,7 +63,7 @@ matrix *normalizedGraphLaplacian(matrix *W, matrix *D) {
     return Lnorm;
 }
 
-void jacobi(matrix **A, matrix **V) {
+void jacobiAlgo(matrix **A, matrix **V) {
     int rows = nRows(*A), cols = nCols(*A);
     matrix *temp, *ATag;
     int convergence = isDiagonal(*A);

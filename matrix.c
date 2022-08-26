@@ -115,6 +115,7 @@ int printMatrix(matrix *mtx) {
     return 0;
 }
 
+
 /*TODO: might need to delete this function */
 /*TODO: if not we need to change it return the transposed matrix and not edit the parameter out */
 
@@ -306,6 +307,22 @@ double euclideanNormBetweenRows(matrix *mtx, double i, double j) {
     return sqrt(dis);
 }
 
+
+/* TODO - change documentation:
+ * prints the diagonal values of the matrix.
+ * Returns 0 if successful, -1 if matrix is not square,
+ * and -2 if the dimensions of the matrices are
+ * incompatible.
+ */
+int printDiagonal(matrix * mtx) {
+    int rows = nRows(mtx), i;
+    if (!isSquare(mtx)) return -2;
+    for (i = 1; i <= rows; i++) {
+        printf("%.4f", getElement(mtx, i, i));
+    }
+    printf("\n");
+    return 0;
+}
 
 /*int main() {
    matrix * A, * Ac, * B, * c, * d, * M, * ct, * mdp;

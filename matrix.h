@@ -43,5 +43,6 @@ double euclideanNormBetweenRows(matrix *mtx, double i, double j);
 
 double euclideanNorm(matrix *mat, double i, double j);
 
+int printDiagonal(matrix * mtx);
 
 #endif /*SOFTWAREPROJECT_MATRIX_H*/

@@ -1,5 +1,21 @@
 #include "spkmeans.h"
 
+/* TODO - Error Handling */
+int main(int argc, char *argv[]) {
+    matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL, *data;
+    if (argc != 3) {
+        invalid_input();
+    }
+    data = extractData("filename");
+    runGoalC(argv[1], data, W, D, lNorm, V);
+    deleteMatrix(W);
+    deleteMatrix(D);
+    deleteMatrix(lNorm);
+    deleteMatrix(V);
+    deleteMatrix(data);
+}
+
+/*
 int main() {
     int rows, cols, i, j;
     matrix *data, *W, *D, *Lnorm, *V;
@@ -23,3 +39,4 @@ int main() {
     printMatrix(P->mtx);
     return 0;
 }
+*/
