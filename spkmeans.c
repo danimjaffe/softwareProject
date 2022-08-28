@@ -7,7 +7,7 @@ int main(int argc, char *argv[]) {
         invalid_input();
     }
     data = extractData("filename");
-    runGoalC(argv[1], data, W, D, lNorm, V);
+    runGoalC(argv[1], data, &W, &D, &lNorm, &V);
     deleteMatrix(W);
     deleteMatrix(D);
     deleteMatrix(lNorm);

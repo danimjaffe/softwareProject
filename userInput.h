@@ -24,7 +24,7 @@ void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm);
 
 void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
-void runGoalC(char *goal, matrix *data, matrix *W, matrix *D, matrix *lNorm, matrix *V);
+void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
 void runGoalPy(char *goal, matrix *data);
 
