@@ -7,8 +7,7 @@
 #include <assert.h>
 #include <stdio.h>
 
-typedef struct
-{
+typedef struct {
     int pivotRow;
     int pivotCol;
     double c;
@@ -17,6 +16,7 @@ typedef struct
 } rotationMatrix;
 
 rotationMatrix *newRotationMatrix(matrix *mtx, int pivotRow, int pivotCol, double c, double s);
-int deleteRotationMatrix(rotationMatrix * rotMtx);
+
+int deleteRotationMatrix(rotationMatrix *rotMtx);
 
 #endif
