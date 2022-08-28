@@ -25,9 +25,10 @@ matrix *weightedAdjacencyMatrix(matrix *mat) {
 /*TODO: free alocated memory*/
 
 /* Creates and returns inverse sqrt of diagonal degree matrix mtx
+    when called by ddg than inversedSquareRoot = 0 otherwise inversedSquareRoot=1
  */
 
-matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx) {
+matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot) {
     int rows = nRows(mtx);
     int cols = nCols(mtx);
     matrix *D = newMatrix(rows, cols);
@@ -37,7 +38,9 @@ matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx) {
         for (j = 1; j <= cols; j++) {
             rowSum += getElement(mtx, i, j);
         }
-        setElement(D, i, i, 1 / sqrt(rowSum));
+        rowSum = (inversedSquareRoot == 0) ? rowSum : 1 / sqrt(rowSum);
+        setElement(D, i, i, rowSum);
+        
     }
     return D;
 }

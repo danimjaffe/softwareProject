@@ -11,7 +11,7 @@
 
 matrix *weightedAdjacencyMatrix(matrix *mat);
 
-matrix *inverseSqrtDiagonalDegreeMatrix(matrix *mtx);
+matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot);
 
 matrix *normalizedGraphLaplacian(matrix *W, matrix *D);
 

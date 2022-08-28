@@ -76,11 +76,12 @@ void wamGoal(matrix *data, matrix **W) {
 
 void ddgGoal(matrix *data, matrix **W, matrix **D) {
     wamGoal(data, W);
-    *D = inverseSqrtDiagonalDegreeMatrix(*W);
+    *D = DiagonalDegreeMatrix(*W, 0);
 }
 
 void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm) {
-    ddgGoal(data, W, D);
+    wamGoal(data, W);
+    *D = DiagonalDegreeMatrix(*W, 1);
     *lNorm = normalizedGraphLaplacian(*W, *D);
 }
 
