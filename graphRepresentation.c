@@ -186,5 +186,4 @@ int checkOffConvergence(matrix *A, matrix *ATag) {
 
     return (offA - offATag) <= eps;
 }
-<<<<<<< HEAD
-=======
+

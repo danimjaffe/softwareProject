@@ -13,12 +13,13 @@ int main(int argc, char *argv[]) {
     deleteMatrix(lNorm);
     deleteMatrix(V);
     deleteMatrix(data);
+    return 0;
 }
 
 /*
 int main() {
 
-    /*
+    
     int rows, cols, i, j;
     matrix *data, *W, *D, *Lnorm, *V;
     rotationMatrix *P;
@@ -39,7 +40,7 @@ int main() {
     V = newMatrix(rows, cols);
     identity(V);
     printMatrix(P->mtx);
-    */
+    
 
    int rows, cols, i, j;
     matrix *data,*dataCP, *newData;
