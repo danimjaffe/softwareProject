@@ -36,7 +36,7 @@ int main() {
     W = weightedAdjacencyMatrix(data);
     D = inverseSqrtDiagonalDegreeMatrix(W);
     Lnorm = normalizedGraphLaplacian(W, D);
-    P = createRotationMatrixP(Lnorm);
+    P = updateRotationMatrixP(Lnorm);
     V = newMatrix(rows, cols);
     identity(V);
     printMatrix(P->mtx);

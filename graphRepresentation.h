@@ -21,10 +21,6 @@ matrix *transformAToATag(matrix *A, rotationMatrix *P);
 
 int checkOffConvergence(matrix *A, matrix *ATag);
 
-void getPivotElem(matrix *A, int *pivotRow, int *pivotCol);
-
-void getRotationMatrixSC(matrix *A, int pivotRow, int pivotCol, double *s, double *c);
-
 void jacobiAlgo(matrix **A, matrix **V);
 
 #endif

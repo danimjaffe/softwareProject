@@ -46,7 +46,7 @@ void sortEigenvaluesAndVectors(matrix * A, matrix * V, matrix * newV){
         
     }
 
-    /*TODO: free all alocated memory for V and for diagonal*/
+    /* TODO: free all alocated memory for V and for diagonal*/
     
 }
 

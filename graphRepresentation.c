@@ -65,74 +65,26 @@ matrix *normalizedGraphLaplacian(matrix *W, matrix *D) {
 
 void jacobiAlgo(matrix **A, matrix **V) {
     int rows = nRows(*A), cols = nCols(*A);
-    matrix *temp, *ATag;
+    matrix *temp, *ATag, *temp2 = NULL;
     int convergence = isDiagonal(*A);
     int maxRotations = 100, rotationNumber = 1;
-    rotationMatrix *P;
+    rotationMatrix *P = newRotationMatrix(*A);
+    temp = newMatrix(rows, cols);
     /*TODO: case when initial matrix is diagonal*/
     while (convergence != 1 && rotationNumber <= maxRotations) {
-        P = createRotationMatrixP(*A);
+        resetRotationMatrix(P);
+        updateRotationMatrixP(*A, P);
         ATag = transformAToATag(*A, P);
         convergence = checkOffConvergence(*A, ATag);
         deleteMatrix(*A);
         *A = ATag;
-        temp = newMatrix(rows, cols);
         product(*V, P->mtx, temp);
+        temp2 = *V;
         *V = temp;
-        deleteMatrix(temp);
+        temp = temp2;
         deleteRotationMatrix(P);
         rotationNumber++;
     }
-}
-
-/* Creates rotation matrix P from initial matrix A
- */
-rotationMatrix *createRotationMatrixP(matrix *A) {
-    rotationMatrix *P;
-    matrix *mtx;
-    int pivotRow, pivotCol, rows = nRows(A), cols = nCols(A);
-    double c, s;
-    /*find pivot element indices*/
-    getPivotElem(A, &pivotRow, &pivotCol);
-    /* obtain c and s*/
-    getRotationMatrixSC(A, pivotRow, pivotCol, &s, &c);
-    /* Create P rotation matrix based on c and s values*/
-    mtx = newMatrix(rows, cols);
-    identity(mtx);
-    setElement(mtx, pivotRow, pivotRow, c);
-    setElement(mtx, pivotCol, pivotCol, c);
-    setElement(mtx, pivotRow, pivotCol, s);
-    setElement(mtx, pivotCol, pivotRow, -s);
-
-    P = newRotationMatrix(mtx, pivotRow, pivotCol, c, s);
-    return P;
-}
-
-void getPivotElem(matrix *A, int *pivotRow, int *pivotCol) {
-    double maxVal = fabs(getElement(A, 1, 2));
-    int i, j, rows = nRows(A), cols = nCols(A);
-    *pivotRow = 1;
-    *pivotCol = 2;
-    for (i = 1; i <= rows; i++) {
-        for (j = 1; j <= cols; j++) {
-            double currAbsElem = fabs(getElement(A, i, j));
-            if (i != j && maxVal < currAbsElem) {
-                *pivotRow = i;
-                *pivotCol = j;
-                maxVal = currAbsElem;
-            }
-        }
-    }
-}
-
-void getRotationMatrixSC(matrix *A, int pivotRow, int pivotCol, double *s, double *c) {
-    double theta, signTheta, t;
-    theta = (getElement(A, pivotRow, pivotRow) - getElement(A, pivotCol, pivotCol)) /
-            (2 * getElement(A, pivotRow, pivotCol));
-    signTheta = (theta >= 0) ? 1 : -1;
-    t = signTheta / (fabs(theta) + sqrt(theta * theta + 1));
-    *c = 1 / (sqrt(t * t + 1));
-    *s = t * (*c);
 }
 
 /*Returns A' based on initial A matrix*/
@@ -186,4 +138,3 @@ int checkOffConvergence(matrix *A, matrix *ATag) {
 
     return (offA - offATag) <= eps;
 }
-

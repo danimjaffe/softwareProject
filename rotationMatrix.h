@@ -15,8 +15,16 @@ typedef struct {
     matrix *mtx;
 } rotationMatrix;
 
-rotationMatrix *newRotationMatrix(matrix *mtx, int pivotRow, int pivotCol, double c, double s);
+rotationMatrix *newRotationMatrix(matrix *A);
+
+void setPivotElem(matrix *A, rotationMatrix *P);
+
+void setRotationMatrixSC(matrix *A, rotationMatrix *P);
 
 int deleteRotationMatrix(rotationMatrix *rotMtx);
+
+void resetRotationMatrix(rotationMatrix *P);
+
+void updateRotationMatrixP(matrix *A, rotationMatrix *P);
 
 #endif

@@ -89,9 +89,11 @@ void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V
     jacobiAlgo(lNorm, V);
 }
 
-void spkGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
+void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
     lnormGoal(data, W, D, lNorm);
     jacobiAlgo(lNorm, V);
+    k = k == 0 ? k : determineK(*lNorm);
+
     /*TODO - continue algorithm */
 }
 
@@ -116,10 +118,10 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
     printMatrix(res);
 }
 
-void runGoalPy(char *goal, matrix *data) {
+void runGoalPy(char *goal, matrix *data, int k) {
     matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL;
     if (strcmp(goal, "spk") == 0) {
-        spkGoal(data, &W, &D, &lNorm, &V);
+        spkGoal(data, k, &W, &D, &lNorm, &V);
     } else {
         runGoalC(goal, data, &W, &D, &lNorm, &V);
     }

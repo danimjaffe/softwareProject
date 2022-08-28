@@ -7,6 +7,7 @@
 #include <math.h>
 #include <assert.h>
 #include "graphRepresentation.h"
+#include "eigengapHeuristic.h"
 
 void invalid_input();
 
@@ -30,8 +31,8 @@ void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V
 
 void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
-void runGoalPy(char *goal, matrix *data);
+void runGoalPy(char *goal, matrix *data, int k);
 
-void runSpk(matrix *lNorm, matrix *V);
+void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
 #endif /*SOFTWAREPROJECT_USERINPUT_H*/

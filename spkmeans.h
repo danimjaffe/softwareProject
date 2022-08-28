@@ -6,7 +6,6 @@
 #include <ctype.h>
 #include <math.h>
 #include <assert.h>
-#include "graphRepresentation.h"
 #include "userInput.h"
 #include "eigengapHeuristic.h"
 
