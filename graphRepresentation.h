@@ -25,6 +25,4 @@ void getPivotElem(matrix *A, int *pivotRow, int *pivotCol);
 
 void getRotationMatrixSC(matrix *A, int pivotRow, int pivotCol, double *s, double *c);
 
-int determineK(matrix * A);
-
 #endif

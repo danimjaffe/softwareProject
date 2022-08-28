@@ -7,5 +7,6 @@
 #include <math.h>
 #include <assert.h>
 #include "graphRepresentation.h"
+#include "eigengapHeuristic.h"
 
 #endif
