@@ -1,11 +1,11 @@
 #ifndef SOFTWAREPROJECT_ROTATION_MATRIX_H
 #define SOFTWAREPROJECT_ROTATION_MATRIX_H
 
-#include "matrix.h"
 #include <stdlib.h>
 #include <string.h>
 #include <assert.h>
 #include <stdio.h>
+#include "matrix.h"
 
 typedef struct {
     int pivotRow;
@@ -20,8 +20,6 @@ rotationMatrix *newRotationMatrix(matrix *A);
 void setPivotElem(matrix *A, rotationMatrix *P);
 
 void setRotationMatrixSC(matrix *A, rotationMatrix *P);
-
-int deleteRotationMatrix(rotationMatrix *rotMtx);
 
 void resetRotationMatrix(rotationMatrix *P);
 

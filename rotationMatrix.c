@@ -31,10 +31,8 @@ void updateRotationMatrixP(matrix *A, rotationMatrix *P) {
 }
 
 void setPivotElem(matrix *A, rotationMatrix *P) {
-    double maxVal = fabs(getElement(A, 1, 2));
+    double maxVal = fabs(getElement(A, P->pivotRow, P->pivotCol));
     int i, j, rows = nRows(A), cols = nCols(A);
-    P->pivotRow = 1;
-    P->pivotCol = 2;
     for (i = 1; i <= rows; i++) {
         for (j = 1; j <= cols; j++) {
             double currAbsElem = fabs(getElement(A, i, j));
@@ -49,12 +47,12 @@ void setPivotElem(matrix *A, rotationMatrix *P) {
 
 void setRotationMatrixSC(matrix *A, rotationMatrix *P) {
     double theta, signTheta, t;
-    theta = (getElement(A, P->pivotRow, P->pivotRow) - getElement(A, P->pivotCol, P->pivotCol)) /
+    theta = (getElement(A, P->pivotCol, P->pivotCol) - getElement(A, P->pivotRow, P->pivotRow)) /
             (2 * getElement(A, P->pivotRow, P->pivotCol));
-    signTheta = (theta >= 0) ? 1 : -1;
+    signTheta = (theta >= 0) ? 1.0 : -1.0;
     t = signTheta / (fabs(theta) + sqrt(theta * theta + 1));
     P->c = 1 / (sqrt(t * t + 1));
-    P->s = t * P->c;
+    P->s = t * (P->c);
 }
 
 void resetRotationMatrix(rotationMatrix *P){
@@ -63,6 +61,7 @@ void resetRotationMatrix(rotationMatrix *P){
     setElement(P->mtx, pivotCol, pivotCol, 1.0);
     setElement(P->mtx, pivotRow, pivotCol, 0.0);
     setElement(P->mtx, pivotCol, pivotRow, 0.0);
+    P->pivotRow = 1; P->pivotCol=2; P->c=1.0; P->s=0.0;
 }
 
 /* Deletes a rotation matrix matrix.  Returns 0 if successful and -1 if mtx

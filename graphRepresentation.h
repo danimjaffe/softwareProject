@@ -15,8 +15,6 @@ matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot);
 
 matrix *normalizedGraphLaplacian(matrix *W, matrix *D);
 
-rotationMatrix *createRotationMatrixP(matrix *A);
-
 matrix *transformAToATag(matrix *A, rotationMatrix *P);
 
 int checkOffConvergence(matrix *A, matrix *ATag);

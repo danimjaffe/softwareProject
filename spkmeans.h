@@ -9,11 +9,4 @@
 #include "userInput.h"
 #include "eigengapHeuristic.h"
 
-
-void invalid_input();
-
-void validateInput(int argc, char *argv[]);
-
-void general_error();
-
 #endif

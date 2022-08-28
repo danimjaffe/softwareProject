@@ -11,8 +11,6 @@
 
 void invalid_input();
 
-void validateInput(int argc, char *argv[]);
-
 void general_error();
 
 matrix *extractData(char *fileName);

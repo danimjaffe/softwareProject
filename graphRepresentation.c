@@ -22,7 +22,7 @@ matrix *weightedAdjacencyMatrix(matrix *mat) {
     return weighted;
 }
 
-/*TODO: free alocated memory*/
+/*TODO: free allocated memory*/
 
 /* Creates and returns inverse sqrt of diagonal degree matrix mtx
     when called by ddg than inversedSquareRoot = 0 otherwise inversedSquareRoot=1
@@ -40,12 +40,11 @@ matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot) {
         }
         rowSum = (inversedSquareRoot == 0) ? rowSum : 1 / sqrt(rowSum);
         setElement(D, i, i, rowSum);
-        
     }
     return D;
 }
 
-/*TODO: free alocated memory*/
+/*TODO: free allocated memory*/
 
 /* Creates and returns normalized graph Laplacian
  */
@@ -72,6 +71,8 @@ void jacobiAlgo(matrix **A, matrix **V) {
     int convergence = isDiagonal(*A);
     int maxRotations = 100, rotationNumber = 1;
     rotationMatrix *P = newRotationMatrix(*A);
+    *V = newMatrix(rows, cols);
+    identity(*V);
     temp = newMatrix(rows, cols);
     /*TODO: case when initial matrix is diagonal*/
     while (convergence != 1 && rotationNumber <= maxRotations) {
@@ -79,13 +80,15 @@ void jacobiAlgo(matrix **A, matrix **V) {
         updateRotationMatrixP(*A, P);
         ATag = transformAToATag(*A, P);
         convergence = checkOffConvergence(*A, ATag);
+        if (convergence == 1){ /*TODO - refactor*/
+            break;
+        }
         deleteMatrix(*A);
         *A = ATag;
         product(*V, P->mtx, temp);
         temp2 = *V;
         *V = temp;
         temp = temp2;
-        deleteRotationMatrix(P);
         rotationNumber++;
     }
 }
@@ -101,20 +104,20 @@ matrix *transformAToATag(matrix *A, rotationMatrix *P) {
     for (r = 1; r <= rows; r++) {
         if (r != j && r != i) {
             /*A'ri and A'ir*/
-            val = c * getElement(A, r, i) - s * getElement(A, r, j);
+            val = (c * getElement(A, r, i)) - (s * getElement(A, r, j));
             setElement(ATag, r, i, val);
             setElement(ATag, i, r, val);
             /*A'rj and A'jr*/
-            val = c * getElement(A, r, j) + s * getElement(A, r, i);
+            val = (c * getElement(A, r, j)) + (s * getElement(A, r, i));
             setElement(ATag, r, j, val);
             setElement(ATag, j, r, val);
         }
     }
     /*A'ii*/
-    val = c * c * getElement(A, i, i) + s * s * getElement(A, j, j) - 2 * s * c * getElement(A, i, j);
+    val = (c * c * getElement(A, i, i)) + (s * s * getElement(A, j, j)) - (2 * s * c * getElement(A, i, j));
     setElement(ATag, i, i, val);
     /*A'jj*/
-    val = s * s * getElement(A, i, i) + c * c * getElement(A, j, j) + 2 * s * c * getElement(A, i, j);
+    val = (s * s * getElement(A, i, i)) + (c * c * getElement(A, j, j)) + (2 * s * c * getElement(A, i, j));
     setElement(ATag, j, j, val);
     /*A'ij and A'ji*/
     setElement(ATag, i, j, ATag_ij);
@@ -123,7 +126,7 @@ matrix *transformAToATag(matrix *A, rotationMatrix *P) {
 }
 
 /*Checks if there is a convergence: off(A)^2 - off(A')^2<=epsilon
-retruns 1 if there is a convergence 0 otherwise*/
+returns 1 if there is a convergence 0 otherwise*/
 int checkOffConvergence(matrix *A, matrix *ATag) {
     int rows = nRows(A);
     int cols = nCols(A);
@@ -133,11 +136,10 @@ int checkOffConvergence(matrix *A, matrix *ATag) {
     for (i = 1; i <= rows; i++) {
         for (j = 1; j <= cols; j++) {
             if (i != j) {
-                offA = offA + getElement(A, i, j) * getElement(A, i, j);
-                offATag = offATag + getElement(ATag, i, j) * getElement(ATag, i, j);
+                offA += getElement(A, i, j) * getElement(A, i, j);
+                offATag += getElement(ATag, i, j) * getElement(ATag, i, j);
             }
         }
     }
-
     return (offA - offATag) <= eps;
 }

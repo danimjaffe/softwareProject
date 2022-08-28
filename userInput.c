@@ -111,8 +111,8 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
         res = *lNorm;
     } else if (strcmp(goal, "jacobi") == 0) {
         jacobiGoal(data, W, D, lNorm, V);
-        printDiagonal(*V);
-        res = *lNorm;
+        printDiagonal(*lNorm);
+        res = *V;
     } else {
         invalid_input();
     }
