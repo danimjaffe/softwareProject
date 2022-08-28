@@ -1,5 +1,7 @@
 #include "rotationMatrix.h"
 
+/*TODO: Add general errors when creating new rotation matrix*/
+
 /* Creates a new rotation matrix
  */
 rotationMatrix *newRotationMatrix(matrix *mtx, int pivotRow, int pivotCol, double c, double s) {

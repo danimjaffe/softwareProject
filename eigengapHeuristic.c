@@ -1,5 +1,8 @@
 #include "eigengapHeuristic.h"
 
+/*TODO: Add general errors when creating new diagonal*/
+
+
 /*Determines k based on decreasing ordered eigenvalues*/
 
 tuple newTuple(int idx, double val){
@@ -15,6 +18,7 @@ void sortEigenvaluesAndVectors(matrix * A, matrix * V, matrix * newV){
     int i,j;
     double val;
     tuple * diagonal = (tuple *) malloc(rows*sizeof(tuple));
+    assert(diagonal != NULL);
     for (i = 1; i <= rows; i++)
     {
         val = getElement(A,i,i);

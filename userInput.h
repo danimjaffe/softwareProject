@@ -16,6 +16,10 @@ void general_error();
 
 matrix *extractData(char *fileName);
 
+void countRowsAndCols(char *inputfile, int * rows, int * cols);
+
+void fillData(char *inputfile, matrix * data);
+
 void wamGoal(matrix *data, matrix **W);
 
 void ddgGoal(matrix *data, matrix **W, matrix **D);

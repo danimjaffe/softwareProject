@@ -1,5 +1,8 @@
 #include "matrix.h"
 
+/*TODO: adjust all file without usage of int's in some functions*/
+/*TODO: Add general errors when creating new matrix*/
+
 /* Creates a ``rows by cols'' matrix with all values 0.
  * Returns NULL if rows <= 0 or cols <= 0 and otherwise a
  * pointer to the new matrix.
@@ -107,7 +110,7 @@ int printMatrix(matrix *mtx) {
             /*  - either a - if negative or a space if positive */
             /*  - at least 3 spaces before the . */
             /*  - precision to the hundredths place */
-            printf("%f ", ELEM(mtx, row, col));
+            printf("%.4f,", ELEM(mtx, row, col));
         }
         /* separate rows by newlines */
         printf("\n");

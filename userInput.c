@@ -15,20 +15,59 @@ void general_error() {
 
 }*/
 
+/* Parses .txt file and returns a valid matrix with all the data in the .txt file*/
 matrix *extractData(char *fileName) {
-    int rows, cols, i, j;
+    int rows=0, cols=0;
     matrix *data;
-    printf("%s", fileName);
-    rows = 4;
-    cols = 4;
+    countRowsAndCols(fileName,&rows,&cols);
     data = newMatrix(rows, cols);
+    fillData(fileName,data);
+    return data;
+}
 
-    for (i = 1; i <= rows; i++) {
-        for (j = 1; j <= cols; j++) {
-            setElement(data, i, j, (double) (i));
+/* Counts the number of rows and columns in the input file*/
+
+void countRowsAndCols(char *inputfile, int * rows, int * cols) {
+    FILE *fp = fopen(inputfile, "r");
+    int c = 0;
+
+    if (fp == NULL)
+        general_error();
+
+    while (!feof(fp)) {
+        c = fgetc(fp);
+        if (c == '\n') {
+            (*rows)++;
+        }
+        if (c == ',') {
+            (*cols)++;
         }
     }
-    return data;
+    *cols = (*cols)/(*rows)+1;
+    if (fclose(fp))
+        general_error();
+}
+
+void fillData(char *inputfile, matrix * data) {
+    int inc, row = 1, col = 1;
+    double val;
+    char ch;
+    FILE *fp = fopen(inputfile, "r");
+
+    if (fp == NULL)
+        general_error();
+
+    while (EOF != (inc = fscanf(fp, "%lf%c", &val, &ch)) && inc == 2) {
+        setElement(data,row,col,val);
+        if (ch == ',') {
+            col++;
+        } else {
+            col = 1;
+            row++;
+        }
+    }
+    if (fclose(fp))
+        general_error();
 }
 
 void wamGoal(matrix *data, matrix **W) {
