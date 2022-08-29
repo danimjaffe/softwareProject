@@ -1,13 +1,19 @@
+/*TODO: adjust file names*/
+/*TODO: handle errors*/
+
 #include "spkmeans.h"
 
 /* TODO - Error Handling */
-int main(int argc, char *argv[]) {
+int main(int argc, char *argv[])
+{
     matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL, *A = NULL, *data;
-    if (argc != 3) {
+    if (argc != 3)
+    {
         invalid_input();
     }
     data = extractData(argv[2]);
-    runGoalC(argv[1], data, &W, &D, &lNorm, &A, &V);
+    /*runGoalC(argv[1], data, &W, &D, &lNorm, &A, &V);*/
+    runGoalPy(argv[1], data, 0);
     deleteMatrix(W);
     deleteMatrix(D);
     deleteMatrix(lNorm);
@@ -20,7 +26,7 @@ int main(int argc, char *argv[]) {
 /*
 int main() {
 
-    
+
     int rows, cols, i, j;
     matrix *data, *W, *D, *Lnorm, *V;
     rotationMatrix *P;
@@ -41,7 +47,7 @@ int main() {
     V = newMatrix(rows, cols);
     identity(V);
     printMatrix(P->mtx);
-    
+
 
    int rows, cols, i, j;
     matrix *data,*dataCP, *newData;
