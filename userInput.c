@@ -154,6 +154,7 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
     printMatrix(res);
 }
 
+/*TODO: move to python*/
 void runGoalPy(char *goal, matrix *data, int k)
 {
     matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL, *A = NULL;

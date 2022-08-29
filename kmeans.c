@@ -1,28 +1,21 @@
 #define PY_SSIZE_T_CLEAN
-
-#include "Python.h"
+#include <Python.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <ctype.h>
 #include <math.h>
 
-static void convertPythonMatrixToCMatrix(PyObject *matrix, int numOfRows, int numOfColumns, double ***cMatrix);
-
-static PyObject *cMatrixToPythonObject(int k, int numOfColumns, double ***centroidArray);
-
+static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numOfColumns,double ***cMatrix);
+static PyObject* cMatrixToPythonObject(int k,int numOfColumns, double ***centroidArray);
 void update_centroids(double **centroids, double **data_points, int k, int cols, int rows, int max_iter, double eps);
-
 double **initialize_matrix(int rows, int cols);
-
 void free_matrix(double **matrix, int n_rows);
-
 int find_closest_centroid(double **centroids, double *vector, int k, int cols);
-
 double distance_between_vectors(double *vec1, double *vec2, int cols);
-
 int check_if_smaller_than_epsion(double **centroids, double **new_centroids, int k, int cols, double eps);
 
-static PyObject *fit(PyObject *self, PyObject *args) {
+static PyObject *fit(PyObject *self, PyObject * args)
+{
     int k, max_iter, rows, dimension;
     double **data_points, **centroids;
     double eps;
@@ -30,20 +23,21 @@ static PyObject *fit(PyObject *self, PyObject *args) {
     PyObject *PypointArr;
     PyObject *PyresultArr;
 
-    if (!PyArg_ParseTuple(args, "iidiiOO", &k, &max_iter, &eps, &dimension, &rows, &PycentArr, &PypointArr)) {
+    if(!PyArg_ParseTuple(args, "iidiiOO", &k, &max_iter,&eps, &dimension, &rows, &PycentArr, &PypointArr))
+    {
         return NULL;
     }
 
-    data_points = initialize_matrix(rows, dimension);
-    centroids = initialize_matrix(k, dimension);
+    data_points=initialize_matrix(rows,dimension);
+    centroids=initialize_matrix(k,dimension);
 
-    convertPythonMatrixToCMatrix(PypointArr, rows, dimension, &data_points);
-    convertPythonMatrixToCMatrix(PycentArr, k, dimension, &centroids);
+    convertPythonMatrixToCMatrix(PypointArr,rows,dimension, &data_points);
+    convertPythonMatrixToCMatrix(PycentArr,k,dimension, &centroids);
 
     update_centroids(centroids, data_points, k, dimension, rows, max_iter, eps);
 
-    PyresultArr = cMatrixToPythonObject(k, dimension, &centroids);
-
+    PyresultArr = cMatrixToPythonObject(k, dimension,&centroids);
+    
     free_matrix(data_points, rows);
     free_matrix(centroids, k);
 
@@ -51,9 +45,9 @@ static PyObject *fit(PyObject *self, PyObject *args) {
 }
 
 static PyMethodDef capiMethods[] = {
-        {"fit",
+        {       "fit",
                 (PyCFunction) fit,
-                     METH_VARARGS,
+                METH_VARARGS,
                 PyDoc_STR("K means algorithm!")},
         {NULL, NULL, 0, NULL}
 };
@@ -67,30 +61,33 @@ static struct PyModuleDef moduledef = {
 };
 
 PyMODINIT_FUNC
-PyInit_mykmeanssp(void) {
+PyInit_mykmeanssp(void)
+{
     PyObject *m;
     m = PyModule_Create(&moduledef);
-    if (!m) {
+    if (!m)
+    {
         return NULL;
     }
     return m;
 }
 
-static void convertPythonMatrixToCMatrix(PyObject *matrix, int numOfRows, int numOfColumns, double ***cMatrix) {
-    int i, j;
-    for (i = 0; i < numOfRows; i++) {
-        for (j = 0; j < numOfColumns; j++) {
-            (*cMatrix)[i][j] = PyFloat_AsDouble(PyList_GetItem(matrix, j + (numOfColumns * i)));
+static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numOfColumns,double ***cMatrix){
+    int i,j;
+    for(i=0; i<numOfRows;i++){
+        for(j = 0; j<numOfColumns;j++){
+            (*cMatrix)[i][j] = PyFloat_AsDouble(PyList_GetItem(matrix, j+(numOfColumns*i)));
         }
     }
 }
 
-static PyObject *cMatrixToPythonObject(int k, int numOfColumns, double ***centroidArray) {
-    int i, j;
-    PyObject *list = PyList_New(k * numOfColumns);
-    for (i = 0; i < k; i++) {
-        for (j = 0; j < numOfColumns; j++) {
-            PyList_SetItem(list, (i * numOfColumns) + j, PyFloat_FromDouble((*centroidArray)[i][j]));
+static PyObject* cMatrixToPythonObject(int k,int numOfColumns, double ***centroidArray)
+{
+    int i,j;
+    PyObject *list = PyList_New(k*numOfColumns);
+    for(i=0; i<k; i++){
+        for(j=0;j<numOfColumns;j++){
+            PyList_SetItem(list, (i*numOfColumns)+j,PyFloat_FromDouble((*centroidArray)[i][j]));
         }
     }
     return list;
@@ -102,9 +99,9 @@ void update_centroids(double **centroids, double **data_points, int k, int cols,
     int i, j, temp_index_of_closest_centroid;
     double **new_centroids = initialize_matrix(k, cols);
     int *counter_data_points_per_centroid = malloc(k * sizeof(int));
-
-    assert(counter_data_points_per_centroid != NULL);
-
+    
+    assert (counter_data_points_per_centroid != NULL);
+    
 
     while (iteration_number < max_iter && epsilon_condition == 0) {
         iteration_number++;
@@ -149,13 +146,13 @@ double **initialize_matrix(int rows, int cols) {
     double **a;
     int i;
     a = calloc(rows, sizeof(double *));
-    assert(centroids != NULL);
-
-    for (i = 0; i < rows; i++) {
+    assert (a != NULL);
+    
+    for (i = 0; i < rows; i++){
         a[i] = calloc(cols, sizeof(double));
-        assert(a[i] != NULL);
+        assert (a[i] != NULL);
     }
-
+        
     return a;
 }
 
