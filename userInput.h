@@ -25,9 +25,9 @@ void ddgGoal(matrix *data, matrix **W, matrix **D);
 
 void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm);
 
-void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
+void jacobiGoal(matrix **A, matrix **V);
 
-void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V);
+void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **A, matrix **V);
 
 void runGoalPy(char *goal, matrix *data, int k);
 

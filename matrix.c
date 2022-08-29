@@ -103,14 +103,14 @@ int nCols(matrix *mtx) {
 int printMatrix(matrix *mtx) {
     int row, col;
     if (!mtx) return -1;
-
     for (row = 1; row <= mtx->rows; row++) {
-        for (col = 1; col <= mtx->cols; col++) {
+        printf("%.4f", ELEM(mtx, row, 1));
+        for (col = 2; col <= mtx->cols; col++) {
             /* Print the floating-point element with */
             /*  - either a - if negative or a space if positive */
             /*  - at least 3 spaces before the . */
             /*  - precision to the hundredths place */
-            printf("%.4f,", ELEM(mtx, row, col));
+            printf(",%.4f", ELEM(mtx, row, col));
         }
         /* separate rows by newlines */
         printf("\n");
@@ -320,8 +320,9 @@ double euclideanNormBetweenRows(matrix *mtx, double i, double j) {
 int printDiagonal(matrix *mtx) {
     int rows = nRows(mtx), i;
     if (!isSquare(mtx)) return -2;
-    for (i = 1; i <= rows; i++) {
-        printf("%.4f", getElement(mtx, i, i));
+    printf("%.4f", getElement(mtx, 1, 1));
+    for (i = 2; i <= rows; i++) {
+        printf(",%.4f", getElement(mtx, i, i));
     }
     printf("\n");
     return 0;

@@ -85,20 +85,18 @@ void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm) {
     *lNorm = normalizedGraphLaplacian(*W, *D);
 }
 
-void jacobiGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
-    lnormGoal(data, W, D, lNorm);
-    jacobiAlgo(lNorm, V);
+void jacobiGoal(matrix **A, matrix **V) {
+    jacobiAlgo(A, V);
 }
 
 void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
     lnormGoal(data, W, D, lNorm);
     jacobiAlgo(lNorm, V);
     k = k == 0 ? k : determineK(*lNorm);
-
     /*TODO - continue algorithm */
 }
 
-void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
+void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **A, matrix **V) {
     matrix *res = NULL;
     if (strcmp(goal, "wam") == 0) {
         wamGoal(data, W);
@@ -110,8 +108,9 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
         lnormGoal(data, W, D, lNorm);
         res = *lNorm;
     } else if (strcmp(goal, "jacobi") == 0) {
-        jacobiGoal(data, W, D, lNorm, V);
-        printDiagonal(*lNorm);
+        *A = copyMatrix(data);
+        jacobiGoal(A, V);
+        printDiagonal(*A);
         res = *V;
     } else {
         invalid_input();
@@ -120,10 +119,10 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
 }
 
 void runGoalPy(char *goal, matrix *data, int k) {
-    matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL;
+    matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL, *A = NULL;
     if (strcmp(goal, "spk") == 0) {
         spkGoal(data, k, &W, &D, &lNorm, &V);
     } else {
-        runGoalC(goal, data, &W, &D, &lNorm, &V);
+        runGoalC(goal, data, &W, &D, &lNorm, &A, &V);
     }
 }

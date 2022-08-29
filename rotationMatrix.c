@@ -46,13 +46,14 @@ void setPivotElem(matrix *A, rotationMatrix *P) {
 }
 
 void setRotationMatrixSC(matrix *A, rotationMatrix *P) {
-    double theta, signTheta, t;
+    double theta, signTheta, t, c;
     theta = (getElement(A, P->pivotCol, P->pivotCol) - getElement(A, P->pivotRow, P->pivotRow)) /
             (2 * getElement(A, P->pivotRow, P->pivotCol));
     signTheta = (theta >= 0) ? 1.0 : -1.0;
     t = signTheta / (fabs(theta) + sqrt(theta * theta + 1));
-    P->c = 1 / (sqrt(t * t + 1));
-    P->s = t * (P->c);
+    c = 1 / (sqrt(t * t + 1));
+    P->c = c;
+    P->s = t * c;
 }
 
 void resetRotationMatrix(rotationMatrix *P){
