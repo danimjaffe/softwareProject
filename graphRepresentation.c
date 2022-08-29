@@ -80,7 +80,7 @@ void jacobiAlgo(matrix **A, matrix **V) {
         updateRotationMatrixP(*A, P);
         ATag = transformAToATag(*A, P);
         convergence = checkOffConvergence(*A, ATag);
-        if (convergence == 1){ /*TODO - refactor*/
+        if (convergence == 1) { /*TODO - refactor*/
             break;
         }
         deleteMatrix(*A);

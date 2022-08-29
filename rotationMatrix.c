@@ -56,13 +56,16 @@ void setRotationMatrixSC(matrix *A, rotationMatrix *P) {
     P->s = t * c;
 }
 
-void resetRotationMatrix(rotationMatrix *P){
+void resetRotationMatrix(rotationMatrix *P) {
     int pivotRow = P->pivotRow, pivotCol = P->pivotCol;
     setElement(P->mtx, pivotRow, pivotRow, 1.0);
     setElement(P->mtx, pivotCol, pivotCol, 1.0);
     setElement(P->mtx, pivotRow, pivotCol, 0.0);
     setElement(P->mtx, pivotCol, pivotRow, 0.0);
-    P->pivotRow = 1; P->pivotCol=2; P->c=1.0; P->s=0.0;
+    P->pivotRow = 1;
+    P->pivotCol = 2;
+    P->c = 1.0;
+    P->s = 0.0;
 }
 
 /* Deletes a rotation matrix matrix.  Returns 0 if successful and -1 if mtx

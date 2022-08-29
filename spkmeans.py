@@ -119,7 +119,8 @@ def main():
         data = flatten_data(kmeans_pp.data_arr)
         centroids = kmeans_pp.initialize_centroids()
         centroids = flatten_data(centroids)
-        result = kn.fit(k, max_iter, 0.00001, n_dimensions, number_of_rows, centroids, data)  # TODO - make sure max_iter is correct!
+        result = kn.fit(k, max_iter, 0.00001, n_dimensions, number_of_rows, centroids,
+                        data)  # TODO - make sure max_iter is correct!
         output_results(result, centroids_idx, n_dimensions)
     except:
         raise SystemExit('An Error Has Occurred')
