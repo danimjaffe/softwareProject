@@ -111,11 +111,11 @@ void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matr
     tuple *diagonal;
     lnormGoal(data, W, D, lNorm);
     jacobiAlgo(lNorm, V);
+    printMatrix(*lNorm);
     rows = nRows(*lNorm);
     diagonal = (tuple *)malloc(rows * sizeof(tuple));
     sortEigenvalues(*lNorm, diagonal);
     *k = *k == 0 ? determineK(diagonal, rows) : *k;
-    printf("k is: %d\n",*k);
     newV = newMatrix(rows, *k);
     reorderEigenvectors(*V, newV, diagonal);    
     deleteMatrix(*V);

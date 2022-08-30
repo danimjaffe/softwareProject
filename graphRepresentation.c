@@ -80,9 +80,6 @@ void jacobiAlgo(matrix **A, matrix **V) {
         updateRotationMatrixP(*A, P);
         ATag = transformAToATag(*A, P);
         convergence = checkOffConvergence(*A, ATag);
-        if (convergence == 1) { /*TODO - refactor*/
-            break;
-        }
         deleteMatrix(*A);
         *A = ATag;
         product(*V, P->mtx, temp);
@@ -91,6 +88,10 @@ void jacobiAlgo(matrix **A, matrix **V) {
         temp = temp2;
         rotationNumber++;
     }
+    
+    deleteMatrix(temp);
+    deleteRotationMatrix(P);
+    
 }
 
 /*Returns A' based on initial A matrix*/

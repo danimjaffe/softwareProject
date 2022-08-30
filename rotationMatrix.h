@@ -25,4 +25,6 @@ void resetRotationMatrix(rotationMatrix *P);
 
 void updateRotationMatrixP(matrix *A, rotationMatrix *P);
 
+int deleteRotationMatrix(rotationMatrix *rotMtx);
+
 #endif

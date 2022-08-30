@@ -138,7 +138,7 @@ function individual_test() {
 		diff_result=$(diff $output_file $testers_path/outputs/$1/$2/$3 2>&1)
 		
 		# verdicting if the test failed, then print an appropriate status
-		verdict_diff ${#diff_result}
+		verdict_diff -w ${#diff_result}
 		
 		# if the test failed, print a report of the 'diff' operation into the test transcript of the interface
 		if [[ ${#diff_result} -ne 0 ]]; then 

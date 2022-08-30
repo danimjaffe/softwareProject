@@ -106,13 +106,8 @@ int printMatrix(matrix *mtx) {
     for (row = 1; row <= mtx->rows; row++) {
         printf("%.4f", ELEM(mtx, row, 1));
         for (col = 2; col <= mtx->cols; col++) {
-            /* Print the floating-point element with */
-            /*  - either a - if negative or a space if positive */
-            /*  - at least 3 spaces before the . */
-            /*  - precision to the hundredths place */
             printf(",%.4f", ELEM(mtx, row, col));
         }
-        /* separate rows by newlines */
         printf("\n");
     }
     return 0;
