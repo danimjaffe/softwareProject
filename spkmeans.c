@@ -12,8 +12,7 @@ int main(int argc, char *argv[])
         invalid_input();
     }
     data = extractData(argv[2]);
-    /*runGoalC(argv[1], data, &W, &D, &lNorm, &A, &V);*/
-    runGoalPy(argv[1], data, 0);
+    runGoalC(argv[1], data, &W, &D, &lNorm, &A, &V);
     deleteMatrix(W);
     deleteMatrix(D);
     deleteMatrix(lNorm);

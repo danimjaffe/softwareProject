@@ -104,7 +104,7 @@ void jacobiGoal(matrix **A, matrix **V)
     jacobiAlgo(A, V);
 }
 
-void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix **V)
+void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matrix **V)
 {
     int rows;
     matrix *newV;
@@ -114,8 +114,8 @@ void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix
     rows = nRows(*lNorm);
     diagonal = (tuple *)malloc(rows * sizeof(tuple));
     sortEigenvalues(*lNorm, diagonal);
-    k = k == 0 ? determineK(diagonal, rows) : k;
-    newV = newMatrix(rows, k);
+    *k = *k == 0 ? determineK(diagonal, rows) : *k;
+    newV = newMatrix(rows, *k);
     reorderEigenvectors(*V, newV, diagonal);
     deleteMatrix(*V);
     *V = newV;
@@ -152,18 +152,4 @@ void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, 
         invalid_input();
     }
     printMatrix(res);
-}
-
-/*TODO: move to python*/
-void runGoalPy(char *goal, matrix *data, int k)
-{
-    matrix *W = NULL, *D = NULL, *lNorm = NULL, *V = NULL, *A = NULL;
-    if (strcmp(goal, "spk") == 0)
-    {
-        spkGoal(data, k, &W, &D, &lNorm, &V);
-    }
-    else
-    {
-        runGoalC(goal, data, &W, &D, &lNorm, &A, &V);
-    }
 }

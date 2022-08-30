@@ -29,8 +29,6 @@ void jacobiGoal(matrix **A, matrix **V);
 
 void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **A, matrix **V);
 
-void runGoalPy(char *goal, matrix *data, int k);
-
-void spkGoal(matrix *data, int k, matrix **W, matrix **D, matrix **lNorm, matrix **V);
+void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matrix **V);
 
 #endif /*SOFTWAREPROJECT_USERINPUT_H*/

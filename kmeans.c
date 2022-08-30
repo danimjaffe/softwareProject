@@ -54,7 +54,7 @@ static PyMethodDef capiMethods[] = {
 
 static struct PyModuleDef moduledef = {
         PyModuleDef_HEAD_INIT,
-        "mykmeanssp",
+        "spkmeansc",
         NULL,
         -1,
         capiMethods
