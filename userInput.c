@@ -115,8 +115,9 @@ void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matr
     diagonal = (tuple *)malloc(rows * sizeof(tuple));
     sortEigenvalues(*lNorm, diagonal);
     *k = *k == 0 ? determineK(diagonal, rows) : *k;
+    printf("k is: %d\n",*k);
     newV = newMatrix(rows, *k);
-    reorderEigenvectors(*V, newV, diagonal);
+    reorderEigenvectors(*V, newV, diagonal);    
     deleteMatrix(*V);
     *V = newV;
     renormalizeEachRow(*V);

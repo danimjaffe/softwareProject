@@ -53,14 +53,14 @@ void reorderEigenvectors(matrix *V, matrix *newV, tuple *diagonal) {
 /*Determine k based on heuristic eigengap theory*/
 int determineK(tuple *diagonal, int rows) {
     int i;
-    int n = floor(rows / 2), k = 1;
+    int n = (int)(rows / 2), k = 1;
     double temp, maxDelta = 0.0;
 
     for (i = 0; i < n - 1; i++) {
-        temp = fabs(diagonal[i].val - diagonal[i].val);
+        temp = fabs(diagonal[i].val - diagonal[i+1].val);
         if (temp > maxDelta) {
             maxDelta = temp;
-            k = i;
+            k = i + 1;
         }
     }
 

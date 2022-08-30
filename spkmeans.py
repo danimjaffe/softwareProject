@@ -82,9 +82,8 @@ def euclidean_distance(u, v):
     return euclidean_dist
 
 
-def validate_input(k, max_iter, n_rows, filename):
-    assert (n_rows > k > 1)
-    assert (max_iter > 0)
+def validate_input(k, n_rows):
+    assert (n_rows > k >= 0)
 
 
 class ArgumentParser(argparse.ArgumentParser):
@@ -93,37 +92,56 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main():
-    try:
-        parser = ArgumentParser()
-        parser.add_argument("k", type=int)
-        parser.add_argument("goal", type=str)
-        parser.add_argument("file_name", type=str)
-        args = parser.parse_args()
-        k = args.k
-        goal = args.goal
-        file_name = args.file_name
-        data = get_data(file_name)
-        n_dimensions = len(data.columns)  # TODO - make sure necessary!
-        number_of_rows = len(data)  # TODO - make sure necessary!
-        validate_input(k, goal, number_of_rows, file_name)
-    except:
-        raise SystemExit('Invalid Input!')
-    try:
-        # TODO:
-        #  1. runGoalPy(goal, data, k) and run KMeansPP on runGoalPy's results!
-        #  2. make sure we pass the right dimensions from this point forward!
-        #  3. make sure all constants are correct
-        max_iter = 300
-        kmeans_pp = KmeansPP(data, k, max_iter)  # TODO - make sure max_iter is correct!
-        centroids_idx = kmeans_pp.centroids_idx
-        data = flatten_data(kmeans_pp.data_arr)
-        centroids = kmeans_pp.initialize_centroids()
-        centroids = flatten_data(centroids)
-        result = kn.fit(k, max_iter, 0.00001, n_dimensions, number_of_rows, centroids,
-                        data)  # TODO - make sure max_iter is correct!
-        output_results(result, centroids_idx, n_dimensions)
-    except:
-        raise SystemExit('An Error Has Occurred')
+    parser = ArgumentParser()
+    parser.add_argument("k", type=int)
+    parser.add_argument("goal", type=str)
+    parser.add_argument("file_name", type=str)
+    args = parser.parse_args()
+    k = args.k
+    goal = args.goal
+    file_name = args.file_name
+    data = get_data(file_name) # TODO - make sure necessary!
+    n_dimensions = len(data.columns)  # TODO - make sure necessary!
+    number_of_rows = len(data)  # TODO - make sure necessary!
+    validate_input(k, number_of_rows)
+    res = kn.goalPy(k,goal,file_name)
+
+    # try:
+    #     parser = ArgumentParser()
+    #     parser.add_argument("k", type=int)
+    #     parser.add_argument("goal", type=str)
+    #     parser.add_argument("file_name", type=str)
+    #     args = parser.parse_args()
+    #     k = args.k
+    #     goal = args.goal
+    #     file_name = args.file_name
+    #     data = get_data(file_name) # TODO - make sure necessary!
+    #     n_dimensions = len(data.columns)  # TODO - make sure necessary!
+    #     number_of_rows = len(data)  # TODO - make sure necessary!
+    #     validate_input(k, goal, number_of_rows, file_name)
+    # except:
+    #     raise SystemExit('Invalid Input!')
+
+    # try:
+    #     kn.goalPy(k,goal,file_name)
+    # except Exception:
+    #     raise SystemExit('An Error Has Occurred')
+    # try:
+    #     # TODO:
+    #     #  1. runGoalPy(goal, data, k) and run KMeansPP on runGoalPy's results!
+    #     #  2. make sure we pass the right dimensions from this point forward!
+    #     #  3. make sure all constants are correct
+    #     max_iter = 300
+    #     kmeans_pp = KmeansPP(data, k, max_iter)  # TODO - make sure max_iter is correct!
+    #     centroids_idx = kmeans_pp.centroids_idx
+    #     data = flatten_data(kmeans_pp.data_arr)
+    #     centroids = kmeans_pp.initialize_centroids()
+    #     centroids = flatten_data(centroids)
+    #     result = kn.fit(k, max_iter, 0.00001, n_dimensions, number_of_rows, centroids,
+    #                     data)  # TODO - make sure max_iter is correct!
+    #     output_results(result, centroids_idx, n_dimensions)
+    # except:
+    #     raise SystemExit('An Error Has Occurred')
 
 
 if __name__ == '__main__':
