@@ -1,4 +1,4 @@
-import mykmeanssp as kn
+import myspkmeans as kn
 from math import sqrt
 import argparse
 import numpy as np
@@ -104,8 +104,6 @@ def main():
     n_dimensions = len(data.columns)  # TODO - make sure necessary!
     number_of_rows = len(data)  # TODO - make sure necessary!
     validate_input(k, number_of_rows)
-    
-    
     res = kn.goalPy(k,goal,file_name)
 
     # try:

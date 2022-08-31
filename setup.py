@@ -1,7 +1,7 @@
 from setuptools import setup, find_packages, Extension
 
 setup(
-    name='mykmeanssp',
+    name='myspkmeans',
     version='0.1.0',
     author="Daniel Jaffe & Ron Blachar",
     description="k-means algorithm, implemented by ex1",
@@ -17,7 +17,7 @@ setup(
     ],
     ext_modules=[
         Extension(
-            'mykmeanssp',
+            'myspkmeans',
             ['eigengapHeuristic.c','errors.c','graphRepresentation.c','matrix.c','rotationMatrix.c','spkmeans.c','spkmeansmodule.c','userInput.c'],
         ),
     ]
