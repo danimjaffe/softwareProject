@@ -12,8 +12,9 @@ def get_data(filename):
     return df
 
 
+# TODO - remove centroids_idx if unnecessary
 def output_results(results, centroids_idx, n_dimensions):
-    print(','.join(centroids_idx))
+    # print(','.join(centroids_idx))
     new_line = "\n"
     res_str = [f'{res:.4f}{new_line if (i + 1) % n_dimensions == 0 else ","}'
                for i, res in enumerate(results)]
@@ -42,6 +43,7 @@ class KmeansPP:
     def initialize_centroids(self):
         for i in range(1, self.k):
             self.calc_centroid()
+        print(','.join(self.centroids_idx), end='\n')
         return self.centroids
 
     def calc_centroid(self):
@@ -92,56 +94,36 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main():
-    parser = ArgumentParser()
-    parser.add_argument("k", type=int)
-    parser.add_argument("goal", type=str)
-    parser.add_argument("file_name", type=str)
-    args = parser.parse_args()
-    k = args.k
-    goal = args.goal
-    file_name = args.file_name
-    data = get_data(file_name) # TODO - make sure necessary!
-    n_dimensions = len(data.columns)  # TODO - make sure necessary!
-    number_of_rows = len(data)  # TODO - make sure necessary!
-    validate_input(k, number_of_rows)
-    res = kn.goalPy(k,goal,file_name)
-
-    # try:
-    #     parser = ArgumentParser()
-    #     parser.add_argument("k", type=int)
-    #     parser.add_argument("goal", type=str)
-    #     parser.add_argument("file_name", type=str)
-    #     args = parser.parse_args()
-    #     k = args.k
-    #     goal = args.goal
-    #     file_name = args.file_name
-    #     data = get_data(file_name) # TODO - make sure necessary!
-    #     n_dimensions = len(data.columns)  # TODO - make sure necessary!
-    #     number_of_rows = len(data)  # TODO - make sure necessary!
-    #     validate_input(k, goal, number_of_rows, file_name)
-    # except:
-    #     raise SystemExit('Invalid Input!')
-
-    # try:
-    #     kn.goalPy(k,goal,file_name)
-    # except Exception:
-    #     raise SystemExit('An Error Has Occurred')
-    # try:
-    #     # TODO:
-    #     #  1. runGoalPy(goal, data, k) and run KMeansPP on runGoalPy's results!
-    #     #  2. make sure we pass the right dimensions from this point forward!
-    #     #  3. make sure all constants are correct
-    #     max_iter = 300
-    #     kmeans_pp = KmeansPP(data, k, max_iter)  # TODO - make sure max_iter is correct!
-    #     centroids_idx = kmeans_pp.centroids_idx
-    #     data = flatten_data(kmeans_pp.data_arr)
-    #     centroids = kmeans_pp.initialize_centroids()
-    #     centroids = flatten_data(centroids)
-    #     result = kn.fit(k, max_iter, 0.00001, n_dimensions, number_of_rows, centroids,
-    #                     data)  # TODO - make sure max_iter is correct!
-    #     output_results(result, centroids_idx, n_dimensions)
-    # except:
-    #     raise SystemExit('An Error Has Occurred')
+    # TODO - arguments should be validated and if invalid throw "Invalid input" - make sure it is implemented.
+    try:
+        parser = ArgumentParser()
+        parser.add_argument("k", type=int)
+        parser.add_argument("goal", type=str)
+        parser.add_argument("file_name", type=str)
+        args = parser.parse_args()
+        k = args.k
+        goal = args.goal
+        file_name = args.file_name
+    except:
+        raise SystemExit('Invalid Input!')
+    res = kn.goalPy(k, goal, file_name)
+    res = pd.DataFrame(res)
+    # Get computed K if necessary
+    k = len(res.columns) if k == 0 else k
+    try:
+        # TODO - make sure all constants are correct
+        max_iter = 300
+        kmeans_pp = KmeansPP(res, k, max_iter)  # TODO - make sure max_iter is correct!
+        centroids_idx = kmeans_pp.centroids_idx
+        data = flatten_data(kmeans_pp.data_arr)
+        centroids = kmeans_pp.initialize_centroids()
+        centroids = flatten_data(centroids)
+        n_dimensions = len(kmeans_pp.data.columns)
+        number_of_rows = len(kmeans_pp.data)
+        result = kn.fit(k, max_iter, 0, n_dimensions, number_of_rows, centroids, data)  # TODO - make sure max_iter is correct!
+        output_results(result, centroids_idx, n_dimensions)
+    except:
+        raise SystemExit('An Error Has Occurred')
 
 
 if __name__ == '__main__':

@@ -16,7 +16,7 @@ void general_error()
 */
 
 /* Parses .txt file and returns a valid matrix with all the data in the .txt file*/
-matrix *extractData(char *fileName)
+matrix *extractData(char *fileName)  // TODO - why so we need to open the file in both countRowsAndCols and in fillData? cant we merge them?
 {
     int rows = 0, cols = 0;
     matrix *data;
@@ -112,7 +112,7 @@ void jacobiGoal(matrix **A, matrix **V)
 void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matrix **V)
 {
     int rows;
-    matrix *newV;
+    matrix *U;
     tuple *diagonal;
     lnormGoal(data, W, D, lNorm);
     jacobiAlgo(lNorm, V);
@@ -123,11 +123,11 @@ void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matr
         general_error();
     }
     sortEigenvalues(*lNorm, diagonal);
-    *k = *k == 0 ? determineK(diagonal, rows) : *k;
-    newV = newMatrix(rows, *k);
-    reorderEigenvectors(*V, newV, diagonal);    
+    *k = (*k == 0) ? determineK(diagonal, rows) : *k;
+    U = newMatrix(rows, *k);
+    reorderEigenvectors(*V, U, diagonal);
     deleteMatrix(*V);
-    *V = newV;
+    *V = U;
     renormalizeEachRow(*V);
 }
 
