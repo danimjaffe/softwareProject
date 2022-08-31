@@ -1,5 +1,7 @@
 #include "userInput.h"
+/*TODO - clean file*/
 
+/*
 void invalid_input()
 {
     printf("%s", "Invalid Input!");
@@ -11,10 +13,7 @@ void general_error()
     printf("%s", "An Error Has Occurred");
     exit(1);
 }
-
-/*void validateInput(int argc, char *argv[]) {
-
-}*/
+*/
 
 /* Parses .txt file and returns a valid matrix with all the data in the .txt file*/
 matrix *extractData(char *fileName)
@@ -54,6 +53,7 @@ void countRowsAndCols(char *inputfile, int *rows, int *cols)
         general_error();
 }
 
+/* Fill data in data matrix based on input file*/
 void fillData(char *inputfile, matrix *data)
 {
     int inc, row = 1, col = 1;
@@ -81,17 +81,20 @@ void fillData(char *inputfile, matrix *data)
         general_error();
 }
 
+/* wam goal*/
 void wamGoal(matrix *data, matrix **W)
 {
     *W = weightedAdjacencyMatrix(data);
 }
 
+/* ddg goal*/
 void ddgGoal(matrix *data, matrix **W, matrix **D)
 {
     wamGoal(data, W);
     *D = DiagonalDegreeMatrix(*W, 0);
 }
 
+/* lnorm goal*/
 void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm)
 {
     wamGoal(data, W);
@@ -99,11 +102,13 @@ void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm)
     *lNorm = normalizedGraphLaplacian(*W, *D);
 }
 
+/* jacobi goal*/
 void jacobiGoal(matrix **A, matrix **V)
 {
     jacobiAlgo(A, V);
 }
 
+/* spk goal*/
 void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matrix **V)
 {
     int rows;
@@ -111,9 +116,12 @@ void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matr
     tuple *diagonal;
     lnormGoal(data, W, D, lNorm);
     jacobiAlgo(lNorm, V);
-    printMatrix(*lNorm);
     rows = nRows(*lNorm);
     diagonal = (tuple *)malloc(rows * sizeof(tuple));
+    if (diagonal==NULL)
+    {
+        general_error();
+    }
     sortEigenvalues(*lNorm, diagonal);
     *k = *k == 0 ? determineK(diagonal, rows) : *k;
     newV = newMatrix(rows, *k);
@@ -123,6 +131,7 @@ void spkGoal(matrix *data, int * k, matrix **W, matrix **D, matrix **lNorm, matr
     renormalizeEachRow(*V);
 }
 
+/* function that runs the desired goal based on user's input*/
 void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **A, matrix **V)
 {
     matrix *res = NULL;

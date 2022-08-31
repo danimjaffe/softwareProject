@@ -6,6 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
+#include "errors.h"
 
 typedef struct {
     int rows;
@@ -32,8 +33,6 @@ int printMatrix(matrix *mtx);
 int sub(matrix *mtx1, matrix *mtx2, matrix *sub);
 
 int product(matrix *mtx1, matrix *mtx2, matrix *prod);
-
-int dotProduct(matrix *v1, matrix *v2, double *prod);
 
 int identity(matrix *m);
 

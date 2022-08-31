@@ -8,10 +8,13 @@
 #include <assert.h>
 #include "graphRepresentation.h"
 #include "eigengapHeuristic.h"
+#include "errors.h"
 
+/*
 void invalid_input();
 
 void general_error();
+*/
 
 matrix *extractData(char *fileName);
 

@@ -1,7 +1,5 @@
 #include "graphRepresentation.h"
 
-/*TODO: free alocated memory*/
-
 /* Creates and returns the weighted adjacency matrix of mat
  */
 
@@ -22,8 +20,6 @@ matrix *weightedAdjacencyMatrix(matrix *mat) {
     return weighted;
 }
 
-/*TODO: free allocated memory*/
-
 /* Creates and returns inverse sqrt of diagonal degree matrix mtx
     when called by ddg than inversedSquareRoot = 0 otherwise inversedSquareRoot=1
  */
@@ -43,8 +39,6 @@ matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot) {
     }
     return D;
 }
-
-/*TODO: free allocated memory*/
 
 /* Creates and returns normalized graph Laplacian
  */

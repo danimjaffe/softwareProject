@@ -1,3 +1,5 @@
+/*TODO: rename file*/
+
 #ifndef SOFTWAREPROJECT_GRAPH_REPRESENTATION_H
 #define SOFTWAREPROJECT_GRAPH_REPRESENTATION_H
 
@@ -15,10 +17,10 @@ matrix *DiagonalDegreeMatrix(matrix *mtx, int inversedSquareRoot);
 
 matrix *normalizedGraphLaplacian(matrix *W, matrix *D);
 
+void jacobiAlgo(matrix **A, matrix **V);
+
 matrix *transformAToATag(matrix *A, rotationMatrix *P);
 
 int checkOffConvergence(matrix *A, matrix *ATag);
-
-void jacobiAlgo(matrix **A, matrix **V);
 
 #endif

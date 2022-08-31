@@ -30,6 +30,7 @@ void updateRotationMatrixP(matrix *A, rotationMatrix *P) {
     setElement(P->mtx, P->pivotCol, P->pivotRow, -(P->s));
 }
 
+/*Find pivot element Aij and set it in P*/
 void setPivotElem(matrix *A, rotationMatrix *P) {
     double maxVal = fabs(getElement(A, P->pivotRow, P->pivotCol));
     int i, j, rows = nRows(A), cols = nCols(A);
@@ -45,6 +46,7 @@ void setPivotElem(matrix *A, rotationMatrix *P) {
     }
 }
 
+/*Sets s and c values in P*/
 void setRotationMatrixSC(matrix *A, rotationMatrix *P) {
     double theta, signTheta, t, c;
     theta = (getElement(A, P->pivotCol, P->pivotCol) - getElement(A, P->pivotRow, P->pivotRow)) /
@@ -56,6 +58,7 @@ void setRotationMatrixSC(matrix *A, rotationMatrix *P) {
     P->s = t * c;
 }
 
+/*Resets P values to 'identity' values*/
 void resetRotationMatrix(rotationMatrix *P) {
     int pivotRow = P->pivotRow, pivotCol = P->pivotCol;
     setElement(P->mtx, pivotRow, pivotRow, 1.0);
@@ -74,7 +77,12 @@ void resetRotationMatrix(rotationMatrix *P) {
 int deleteRotationMatrix(rotationMatrix *rotMtx) {
     if (!rotMtx) return -1;
     /* free rotMtx's mtx field */
-    assert (rotMtx->mtx);
+    if (rotMtx->mtx==NULL)
+    {
+        general_error();
+    }
+    
+    /*assert (rotMtx->mtx);*/
     deleteMatrix(rotMtx->mtx);
     /* free mtx itself */
     free(rotMtx);

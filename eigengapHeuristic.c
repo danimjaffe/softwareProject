@@ -1,7 +1,5 @@
 #include "eigengapHeuristic.h"
 
-/*TODO: Add general errors when creating new diagonal*/
-
 /*Determines k based on decreasing ordered eigenvalues*/
 
 tuple newTuple(int idx, double val) {
@@ -23,7 +21,6 @@ void sortEigenvalues(matrix *A, tuple *diagonal) {
 
     qsort(diagonal, rows, sizeof(tuple), compareTuple);
 
-    /* TODO: free all alocated memory for V and for diagonal*/
 }
 
 /*Compares 2 tuples*/
@@ -67,6 +64,7 @@ int determineK(tuple *diagonal, int rows) {
     return k;
 }
 
+/* Renormalize V to have unit length*/
 void renormalizeEachRow(matrix *V) {
     int rows = nRows(V), cols = nCols(V);
     int i, j;

@@ -8,7 +8,7 @@
 
 static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx);
 
-/*TODO:rename function*/
+/*C function to run python goal*/
 static PyObject* runGoalPy(PyObject *self, PyObject * args)
 {
     char * goal, * fileName;
@@ -63,6 +63,7 @@ PyInit_mykmeanssp(void)
     return m;
 }
 
+/* Convert C matrix to python list*/
 static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx)
 {
     int i,j;

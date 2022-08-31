@@ -6,6 +6,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include "matrix.h"
+#include "errors.h"
 
 typedef struct {
     int pivotRow;
@@ -17,13 +18,13 @@ typedef struct {
 
 rotationMatrix *newRotationMatrix(matrix *A);
 
+void updateRotationMatrixP(matrix *A, rotationMatrix *P);
+
 void setPivotElem(matrix *A, rotationMatrix *P);
 
 void setRotationMatrixSC(matrix *A, rotationMatrix *P);
 
 void resetRotationMatrix(rotationMatrix *P);
-
-void updateRotationMatrixP(matrix *A, rotationMatrix *P);
 
 int deleteRotationMatrix(rotationMatrix *rotMtx);
 
