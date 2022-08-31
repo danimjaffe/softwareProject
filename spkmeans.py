@@ -1,5 +1,3 @@
-#TODO - epsilon=0 in kmeans++ part
-
 import myspkmeans as kn
 from math import sqrt
 import argparse
@@ -14,9 +12,8 @@ def get_data(filename):
     return df
 
 
-# TODO - remove centroids_idx if unnecessary
 def output_results(results, centroids_idx, n_dimensions):
-    # print(','.join(centroids_idx))
+    print(','.join(centroids_idx), end='\n')
     new_line = "\n"
     res_str = [f'{res:.4f}{new_line if (i + 1) % n_dimensions == 0 else ","}'
                for i, res in enumerate(results)]
@@ -45,7 +42,6 @@ class KmeansPP:
     def initialize_centroids(self):
         for i in range(1, self.k):
             self.calc_centroid()
-        print(','.join(self.centroids_idx), end='\n')
         return self.centroids
 
     def calc_centroid(self):
@@ -96,7 +92,7 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main():
-    # TODO - arguments should be validated and if invalid throw "Invalid input" - make sure it is implemented.
+    # TODO - argument number should be validated and if invalid throw "Invalid input" - make sure it is implemented.
     try:
         parser = ArgumentParser()
         parser.add_argument("k", type=int)
@@ -111,19 +107,18 @@ def main():
     res = kn.goalPy(k, goal, file_name)
     res = pd.DataFrame(res)
     # Get computed K if necessary
-    k = len(res.columns) if k == 0 else k
+    k = len(res.columns)
     try:
-        # TODO - make sure all constants are correct
         max_iter = 300
-        kmeans_pp = KmeansPP(res, k, max_iter)  # TODO - make sure max_iter is correct!
+        eps = 0
+        kmeans_pp = KmeansPP(res, k, max_iter)
         centroids_idx = kmeans_pp.centroids_idx
         data = flatten_data(kmeans_pp.data_arr)
         centroids = kmeans_pp.initialize_centroids()
         centroids = flatten_data(centroids)
-        n_dimensions = len(kmeans_pp.data.columns)
         number_of_rows = len(kmeans_pp.data)
-        result = kn.fit(k, max_iter, 0, n_dimensions, number_of_rows, centroids, data)  # TODO - make sure max_iter is correct!
-        output_results(result, centroids_idx, n_dimensions)
+        result = kn.fit(k, max_iter, eps, k, number_of_rows, centroids, data)
+        output_results(result, centroids_idx, k)
     except:
         raise SystemExit('An Error Has Occurred')
 

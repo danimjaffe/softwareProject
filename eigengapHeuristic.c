@@ -39,7 +39,6 @@ int compareTuple(const void *p1, const void *p2) {
 // TODO - change names of i,j and function name
 void reorderEigenvectors(matrix *V, matrix *U, tuple *diagonal) {
     int rows = nRows(U), cols = nRows(U), i, j;
-
     for (i = 1; i <= cols; i++) {
         for (j = 1; j <= rows; j++) {
             setElement(U, j, i, getElement(V, j, diagonal[i - 1].idx));
@@ -69,7 +68,6 @@ void renormalizeEachRow(matrix *V) {
     int rows = nRows(V), cols = nCols(V);
     int i, j;
     double val;
-
     for (i = 1; i <= rows; i++) {
         val = 0.0;
         for (j = 1; j <= cols; j++) {
