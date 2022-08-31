@@ -110,6 +110,21 @@ static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx)
 {
     int i,j;
     double val;
+    PyObject *list,*row;
+    list = PyList_New(rows);
+    for(i=1; i<=rows; i++){
+        row = PyList_New(cols);
+        for(j=1;j<=cols;j++){
+            val = getElement(mtx,i,j);
+            PyList_SetItem(row, j-1,PyFloat_FromDouble(val));
+        }
+        PyList_SetItem(list,i-1,row);
+    }
+    return list;
+    
+    /*
+    int i,j;
+    double val;
     PyObject *list = PyList_New(rows*cols);
     for(i=0; i<rows; i++){
         for(j=0;j<cols;j++){
@@ -118,6 +133,8 @@ static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx)
         }
     }
     return list;
+    */
+    
 }
 
 static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numOfColumns,double ***cMatrix){

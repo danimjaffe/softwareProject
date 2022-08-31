@@ -108,7 +108,7 @@ int nRows(matrix *mtx) {
 /* returns number of columns in matrix
  */
 int nCols(matrix *mtx) {
-    return mtx->rows;
+    return mtx->cols;
 }
 
 /* Prints the matrix to stdout.  Returns 0 if successful
