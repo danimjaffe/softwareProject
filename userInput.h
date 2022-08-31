@@ -8,7 +8,7 @@
 #include <assert.h>
 #include "graphRepresentation.h"
 #include "eigengapHeuristic.h"
-#include "errors.h"
+#include "errorHandling.h"
 
 /*
 void invalid_input();

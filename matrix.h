@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <math.h>
-#include "errors.h"
+#include "errorHandling.h"
 
 typedef struct {
     int rows;

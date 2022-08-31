@@ -18,7 +18,7 @@ setup(
     ext_modules=[
         Extension(
             'myspkmeans',
-            ['eigengapHeuristic.c','errors.c','graphRepresentation.c','matrix.c','rotationMatrix.c','spkmeans.c','spkmeansmodule.c','userInput.c'],
+            ['eigengapHeuristic.c','errorHandling.c','graphRepresentation.c','matrix.c','rotationMatrix.c','spkmeans.c','spkmeansmodule.c','userInput.c'],
         ),
     ]
 )
