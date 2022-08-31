@@ -18,7 +18,7 @@ setup(
     ext_modules=[
         Extension(
             'mykmeanssp',
-            ['eigengapHeuristic.c','graphRepresentation.c','matrix.c','rotationMatrix.c','spkmeans.c','spkmeansmodule.c','userInput.c'],
+            ['eigengapHeuristic.c','errors.c','graphRepresentation.c','matrix.c','rotationMatrix.c','spkmeans.c','spkmeansmodule.c','userInput.c'],
         ),
     ]
 )
