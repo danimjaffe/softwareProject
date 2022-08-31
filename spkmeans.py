@@ -56,7 +56,7 @@ class KmeansPP:
         for i, point in enumerate(self.data_arr):
             min_dist = euclidean_distance(point, self.centroids[0])
             for centroid in self.centroids:
-                curr_dist = euclidean_distance(point, centroid)
+                curr_dist = euclidean_distance(point, centroid.tolist())
                 if curr_dist < min_dist:
                     min_dist = curr_dist
             min_dist_arr[i] = min_dist
@@ -92,7 +92,6 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main():
-    # TODO - argument number should be validated and if invalid throw "Invalid input" - make sure it is implemented.
     try:
         parser = ArgumentParser()
         parser.add_argument("k", type=int)
@@ -105,8 +104,10 @@ def main():
     except:
         raise SystemExit('Invalid Input!')
     res = kn.goalPy(k, goal, file_name)
+    # print(len(res))
+    if len(res) == 0:
+        return 0
     res = pd.DataFrame(res)
-    # Get computed K if necessary
     k = len(res.columns)
     try:
         max_iter = 300

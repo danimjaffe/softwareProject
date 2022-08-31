@@ -8,8 +8,8 @@
 #include <math.h>
 #include <assert.h>
 
-void invalid_input();
+void invalid_input(void);
 
-void general_error();
+void general_error(void);
 
 #endif /*SOFTWAREPROJECT_ERROR_HANDLING_H*/
