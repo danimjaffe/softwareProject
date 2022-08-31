@@ -6,7 +6,7 @@
 #include <assert.h>
 #include <stdio.h>
 #include "matrix.h"
-#include "errors.h"
+#include "errorHandling.h"
 
 typedef struct {
     int pivotRow;

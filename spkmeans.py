@@ -1,3 +1,5 @@
+#TODO - epsilon=0 in kmeans++ part
+
 import myspkmeans as kn
 from math import sqrt
 import argparse

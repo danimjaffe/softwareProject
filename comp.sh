@@ -1,3 +1,2 @@
 #!/bin/bash
-gcc eigengapHeuristic.c graphRepresentation.c matrix.c eigengapHeuristic.c spkmeansmodule.c userInput.c
-gcc -ansi -Wall -Wextra -Werror -pedantic-errors spkmeans.c -lm -o spkmeans
+gcc -ansi -Wall -Wextra -Werror -pedantic-errors eigengapHeuristic.c errorHandling.c graphRepresentation.c matrix.c rotationMatrix.c spkmeans.c userInput.c -lm -o spkmeans
