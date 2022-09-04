@@ -1,5 +1,9 @@
 {
     "files.associations": {
-        "rotationmatrix.h": "c"
+        "rotationmatrix.h": "c",
+        "graphrepresentation.h": "c",
+        "errors.h": "c",
+        "matrix.h": "c",
+        "eigengapheuristic.h": "c"
     }
 }
