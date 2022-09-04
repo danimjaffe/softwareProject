@@ -16,7 +16,7 @@ void general_error()
 */
 
 /* Parses .txt file and returns a valid matrix with all the data in the .txt file*/
-matrix *extractData(char *fileName)  // TODO - why so we need to open the file in both countRowsAndCols and in fillData? cant we merge them?
+matrix *extractData(char *fileName)  /* TODO - why so we need to open the file in both countRowsAndCols and in fillData? cant we merge them?*/
 {
     int rows = 0, cols = 0;
     matrix *data;

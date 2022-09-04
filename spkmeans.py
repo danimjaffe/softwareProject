@@ -105,22 +105,24 @@ def main():
     except:
         raise SystemExit('Invalid Input!')
     res = kn.goalPy(k, goal, file_name)
-    res = pd.DataFrame(res)
-    # Get computed K if necessary
-    k = len(res.columns)
-    try:
-        max_iter = 300
-        eps = 0
-        kmeans_pp = KmeansPP(res, k, max_iter)
-        centroids_idx = kmeans_pp.centroids_idx
-        data = flatten_data(kmeans_pp.data_arr)
-        centroids = kmeans_pp.initialize_centroids()
-        centroids = flatten_data(centroids)
-        number_of_rows = len(kmeans_pp.data)
-        result = kn.fit(k, max_iter, eps, k, number_of_rows, centroids, data)
-        output_results(result, centroids_idx, k)
-    except:
-        raise SystemExit('An Error Has Occurred')
+
+    if goal=="spk":
+        res = pd.DataFrame(res)
+        # Get computed K if necessary
+        k = len(res.columns)
+        try:
+            max_iter = 300
+            eps = 0
+            kmeans_pp = KmeansPP(res, k, max_iter)
+            centroids_idx = kmeans_pp.centroids_idx
+            data = flatten_data(kmeans_pp.data_arr)
+            centroids = kmeans_pp.initialize_centroids()
+            centroids = flatten_data(centroids)
+            number_of_rows = len(kmeans_pp.data)
+            result = kn.fit(k, max_iter, eps, k, number_of_rows, centroids, data)
+            output_results(result, centroids_idx, k)
+        except:
+            raise SystemExit('An Error Has Occurred')
 
 
 if __name__ == '__main__':
