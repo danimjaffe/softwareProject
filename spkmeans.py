@@ -56,7 +56,7 @@ class KmeansPP:
         for i, point in enumerate(self.data_arr):
             min_dist = euclidean_distance(point, self.centroids[0])
             for centroid in self.centroids:
-                curr_dist = euclidean_distance(point, centroid)
+                curr_dist = euclidean_distance(point, centroid.tolist())
                 if curr_dist < min_dist:
                     min_dist = curr_dist
             min_dist_arr[i] = min_dist
