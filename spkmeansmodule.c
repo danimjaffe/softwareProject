@@ -66,7 +66,7 @@ static PyObject *fit(PyObject *self, PyObject * args)
     update_centroids(centroids, data_points, k, dimension, rows, max_iter, eps);
 
     PyresultArr = cMatrixToPythonObject1(k, dimension,&centroids);
-
+    
     free_matrix(data_points, rows);
     free_matrix(centroids, k);
 
@@ -164,9 +164,9 @@ void update_centroids(double **centroids, double **data_points, int k, int cols,
     int i, j, temp_index_of_closest_centroid;
     double **new_centroids = initialize_matrix(k, cols);
     int *counter_data_points_per_centroid = malloc(k * sizeof(int));
-
+    
     assert (counter_data_points_per_centroid != NULL);
-
+    
 
     while (iteration_number < max_iter && epsilon_condition == 0) {
         iteration_number++;
@@ -212,12 +212,12 @@ double **initialize_matrix(int rows, int cols) {
     int i;
     a = calloc(rows, sizeof(double *));
     assert (a != NULL);
-
+    
     for (i = 0; i < rows; i++){
         a[i] = calloc(cols, sizeof(double));
         assert (a[i] != NULL);
     }
-
+        
     return a;
 }
 
