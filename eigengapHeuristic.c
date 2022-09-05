@@ -73,9 +73,11 @@ void renormalizeEachRow(matrix *V) {
         for (j = 1; j <= cols; j++) {
             val += getElement(V, i, j) * getElement(V, i, j);
         }
-        val = sqrt(val);
-        for (j = 1; j <= cols; j++) {
-            setElement(V, i, j, getElement(V, i, j) / val);
+        if (val != 0) {
+            val = sqrt(val);
+            for (j = 1; j <= cols; j++) {
+                setElement(V, i, j, getElement(V, i, j) / val);
+            }
         }
     }
 }

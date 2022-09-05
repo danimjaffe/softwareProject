@@ -18,7 +18,7 @@ def output_results(results, centroids_idx, n_dimensions):
     res_str = [f'{res:.4f}{new_line if (i + 1) % n_dimensions == 0 else ","}'
                for i, res in enumerate(results)]
     res_str = ''.join(res_str)
-    print(res_str)
+    print(res_str, end='')
 
 
 def flatten_data(matrix):
@@ -92,7 +92,6 @@ class ArgumentParser(argparse.ArgumentParser):
 
 
 def main():
-    # TODO - argument number should be validated and if invalid throw "Invalid input" - make sure it is implemented.
     try:
         parser = ArgumentParser()
         parser.add_argument("k", type=int)
@@ -105,10 +104,10 @@ def main():
     except:
         raise SystemExit('Invalid Input!')
     res = kn.goalPy(k, goal, file_name)
-
-    if goal=="spk":
+    if len(res) == 0:
+        return 0
+    if goal == 'spk':
         res = pd.DataFrame(res)
-        # Get computed K if necessary
         k = len(res.columns)
         try:
             max_iter = 300
