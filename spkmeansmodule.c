@@ -6,7 +6,7 @@
 #include <math.h>
 #include "spkmeans.h"
 
-static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx);
+static PyObject* cMatrixToPythonObject(matrix * mtx);
 static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numOfColumns,double ***cMatrix);
 static PyObject* cMatrixToPythonObject1(int k,int numOfColumns, double ***centroidArray);
 void update_centroids(double **centroids, double **data_points, int k, int cols, int rows, int max_iter, double eps);
@@ -34,7 +34,7 @@ static PyObject* runGoalPy(PyObject *self, PyObject * args)
     if (strcmp(goal, "spk") == 0)
     {
         spkGoal(data, &k, &W, &D, &lNorm, &V);
-        PyresultArr = cMatrixToPythonObject(nRows(V),nCols(V),V);
+        PyresultArr = cMatrixToPythonObject(V);
     }
 
     else{
@@ -115,9 +115,11 @@ PyInit_myspkmeans(void)
 }
 
 /* Convert C matrix to python list*/
-static PyObject* cMatrixToPythonObject(int rows,int cols, matrix * mtx)
+static PyObject* cMatrixToPythonObject(matrix * mtx)
 {
     int i,j;
+    int rows = nRows(mtx);
+    int cols = nCols(mtx);
     double val;
     PyObject *list,*row;
     list = PyList_New(rows);
