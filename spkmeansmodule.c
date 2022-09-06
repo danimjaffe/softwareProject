@@ -35,11 +35,20 @@ static PyObject* runGoalPy(PyObject *self, PyObject * args)
     {
         spkGoal(data, &k, &W, &D, &lNorm, &V);
         PyresultArr = cMatrixToPythonObject(nRows(V),nCols(V),V);
-        return PyresultArr;
     }
 
-    runGoalC(goal, data, &W, &D, &lNorm, &A, &V);
-    return PyList_New(0);
+    else{
+        runGoalC(goal, data, &W, &D, &lNorm, &A, &V);
+        PyresultArr = PyList_New(0);
+    }
+
+    deleteMatrix(W);
+    deleteMatrix(D);
+    deleteMatrix(lNorm);
+    deleteMatrix(A);
+    deleteMatrix(V);
+    deleteMatrix(data);
+    return PyresultArr;
 }
 
 /*C function to run fit as part of kmeans++ algorithm*/
