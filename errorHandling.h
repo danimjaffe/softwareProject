@@ -1,4 +1,3 @@
-/*TODO: rename files to errorHandling*/
 #ifndef SOFTWAREPROJECT_ERROR_HANDLING_H
 #define SOFTWAREPROJECT_ERROR_HANDLING_H
 

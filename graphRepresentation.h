@@ -1,4 +1,4 @@
-/*TODO: rename file*/
+/* Implementation of Section 1.1 - Graph Representation */
 
 #ifndef SOFTWAREPROJECT_GRAPH_REPRESENTATION_H
 #define SOFTWAREPROJECT_GRAPH_REPRESENTATION_H

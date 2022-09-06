@@ -181,6 +181,7 @@ void update_centroids(double **centroids, double **data_points, int k, int cols,
 
     while (iteration_number < max_iter && epsilon_condition == 0) {
         iteration_number++;
+        /* Reset counter_data_points_per_centroid and new_centroids */
         for (i = 0; i < k; i++) {
             counter_data_points_per_centroid[i] = 0;
             for (j = 0; j < cols; j++) {

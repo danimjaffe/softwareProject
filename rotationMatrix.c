@@ -1,14 +1,14 @@
 #include "rotationMatrix.h"
 
-/*TODO: Add general errors when creating new rotation matrix*/
-
 /* Creates a new rotation matrix set to identity matrix of size(A)
  */
 rotationMatrix *newRotationMatrix(matrix *A) {
     rotationMatrix *P;
     matrix *data = newMatrix(nRows(A), nCols(A));
     P = (rotationMatrix *) malloc(sizeof(rotationMatrix));
-    assert(P != NULL);
+    if (P == NULL) {
+        general_error();
+    }
     identity(data);
     P->mtx = data;
     P->pivotRow = 1;
@@ -35,9 +35,9 @@ void setPivotElem(matrix *A, rotationMatrix *P) {
     double maxVal = fabs(getElement(A, P->pivotRow, P->pivotCol));
     int i, j, rows = nRows(A), cols = nCols(A);
     for (i = 1; i <= rows; i++) {
-        for (j = 1; j <= cols; j++) {
+        for (j = i+1; j <= cols; j++) {
             double currAbsElem = fabs(getElement(A, i, j));
-            if (i != j && maxVal < currAbsElem) {
+            if (maxVal < currAbsElem) {
                 P->pivotRow = i;
                 P->pivotCol = j;
                 maxVal = currAbsElem;
@@ -77,11 +77,10 @@ void resetRotationMatrix(rotationMatrix *P) {
 int deleteRotationMatrix(rotationMatrix *rotMtx) {
     if (!rotMtx) return -1;
     /* free rotMtx's mtx field */
-    if (rotMtx->mtx==NULL)
-    {
+    if (rotMtx->mtx == NULL) {
         general_error();
     }
-    
+
     /*assert (rotMtx->mtx);*/
     deleteMatrix(rotMtx->mtx);
     /* free mtx itself */

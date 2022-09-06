@@ -1,7 +1,5 @@
 #include "matrix.h"
 
-/*TODO: Add general errors when creating new matrix*/
-
 /* Creates a ``rows by cols'' matrix with all values 0.
  * Returns NULL if rows <= 0 or cols <= 0 and otherwise a
  * pointer to the new matrix.
@@ -13,12 +11,9 @@ matrix *newMatrix(int rows, int cols) {
 
     /* allocate a matrix structure*/
     m = (matrix *) malloc(sizeof(matrix));
-    if (m==NULL)
-    {
+    if (m == NULL) {
         general_error();
     }
-    
-    /*assert(m != NULL);*/
 
     /* set dimensions*/
     m->rows = rows;
@@ -26,11 +21,9 @@ matrix *newMatrix(int rows, int cols) {
 
     /* allocate a double array of length rows * cols */
     m->data = (double *) malloc(rows * cols * sizeof(double));
-    if (m->data==NULL)
-    {
+    if (m->data == NULL) {
         general_error();
     }
-    /*assert(m->data);*/
     /* set all data to 0 */
     for (i = 0; i < rows * cols; i++)
         m->data[i] = 0.0;
@@ -44,8 +37,7 @@ matrix *newMatrix(int rows, int cols) {
 int deleteMatrix(matrix *mtx) {
     if (!mtx) return -1;
     /* free mtx's data */
-    if (mtx->data==NULL)
-    {
+    if (mtx->data == NULL) {
         general_error();
     }
     /*assert (mtx->data);*/
@@ -80,8 +72,7 @@ matrix *copyMatrix(matrix *mtx) {
  */
 int setElement(matrix *mtx, int row, int col, double val) {
     if (!mtx) return -1;
-    if (mtx->data==NULL)
-    {
+    if (mtx->data == NULL) {
         general_error();
     }
     /*assert (mtx->data);*/

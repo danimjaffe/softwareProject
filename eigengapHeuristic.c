@@ -4,7 +4,7 @@
 
 tuple newTuple(int idx, double val) {
     tuple t;
-    t.idx = idx;  /* TODO Why not a pointer to the vector?*/
+    t.idx = idx;
     t.val = val;
     return t;
 }
@@ -36,12 +36,11 @@ int compareTuple(const void *p1, const void *p2) {
 }
 
 /* Reorder eigenvectors of V*/
-/* TODO - change names of i,j and function name*/
 void reorderEigenvectors(matrix *V, matrix *U, tuple *diagonal) {
-    int rows = nRows(U), cols = nRows(U), i, j;
-    for (i = 1; i <= cols; i++) {
-        for (j = 1; j <= rows; j++) {
-            setElement(U, j, i, getElement(V, j, diagonal[i - 1].idx));
+    int rows = nRows(U), cols = nCols(U), i, j;
+    for (j = 1; j <= cols; j++) {
+        for (i = 1; i <= rows; i++) {
+            setElement(U, i, j, getElement(V, i, diagonal[j - 1].idx));
         }
     }
 }

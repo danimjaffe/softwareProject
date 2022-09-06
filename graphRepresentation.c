@@ -1,8 +1,9 @@
+/* Implementation of Section 1.1 - Graph Representation */
 #include "graphRepresentation.h"
+
 
 /* Creates and returns the weighted adjacency matrix of mat
  */
-
 matrix *weightedAdjacencyMatrix(matrix *mat) {
     int nDataPoints = nRows(mat);
     int i, j;
@@ -68,7 +69,6 @@ void jacobiAlgo(matrix **A, matrix **V) {
     *V = newMatrix(rows, cols);
     identity(*V);
     temp = newMatrix(rows, cols);
-    /*TODO: case when initial matrix is diagonal*/
     while (convergence != 1 && rotationNumber <= maxRotations) {
         resetRotationMatrix(P);
         updateRotationMatrixP(*A, P);
