@@ -60,6 +60,8 @@ matrix *normalizedGraphLaplacian(matrix *W, matrix *D) {
     return Lnorm;
 }
 
+/* Implementaion of Jacobi algorithm
+ */
 void jacobiAlgo(matrix **A, matrix **V) {
     int rows = nRows(*A), cols = nCols(*A);
     matrix *temp, *ATag, *temp2 = NULL;

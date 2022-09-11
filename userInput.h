@@ -10,12 +10,6 @@
 #include "eigengapHeuristic.h"
 #include "errorHandling.h"
 
-/*
-void invalid_input();
-
-void general_error();
-*/
-
 matrix *extractData(char *fileName);
 
 void countRowsAndCols(char *inputfile, int * rows, int * cols);
