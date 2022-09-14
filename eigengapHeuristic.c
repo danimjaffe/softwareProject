@@ -1,7 +1,6 @@
 #include "eigengapHeuristic.h"
 
-/*Determines k based on decreasing ordered eigenvalues*/
-
+/* Creates a new Tuple */
 tuple newTuple(int idx, double val) {
     tuple t;
     t.idx = idx;
@@ -9,7 +8,7 @@ tuple newTuple(int idx, double val) {
     return t;
 }
 
-/*Sort eigenvalues in decreasing order*/
+/* Sort eigenvalues in decreasing order */
 void sortEigenvalues(matrix *A, tuple *diagonal) {
     int rows = nRows(A);
     int i;
@@ -23,7 +22,7 @@ void sortEigenvalues(matrix *A, tuple *diagonal) {
 
 }
 
-/*Compares 2 tuples*/
+/* Compares 2 tuples */
 int compareTuple(const void *p1, const void *p2) {
     const tuple *q1 = p1, *q2 = p2;
     double val;
@@ -35,7 +34,7 @@ int compareTuple(const void *p1, const void *p2) {
     return val;
 }
 
-/* Reorder eigenvectors of V*/
+/* Insert K largest Eigenvectors ordered by their Eigenvalues into the matrix U */
 void reorderEigenvectors(matrix *V, matrix *U, tuple *diagonal) {
     int rows = nRows(U), cols = nCols(U), i, j;
     for (j = 1; j <= cols; j++) {
@@ -45,24 +44,22 @@ void reorderEigenvectors(matrix *V, matrix *U, tuple *diagonal) {
     }
 }
 
-/*Determine k based on heuristic eigengap theory*/
+/* Determine k based on heuristic eigengap theory */
 int determineK(tuple *diagonal, int rows) {
     int i;
-    int n = (int)(rows / 2), k = 1;
+    int n = (int) (rows / 2), k = 1;
     double temp, maxDelta = 0.0;
-
     for (i = 0; i < n - 1; i++) {
-        temp = fabs(diagonal[i].val - diagonal[i+1].val);
+        temp = fabs(diagonal[i].val - diagonal[i + 1].val);
         if (temp > maxDelta) {
             maxDelta = temp;
             k = i + 1;
         }
     }
-
     return k;
 }
 
-/* Renormalize V to have unit length*/
+/* Renormalize V to have unit length */
 void renormalizeEachRow(matrix *V) {
     int rows = nRows(V), cols = nCols(V);
     int i, j;

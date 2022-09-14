@@ -1,6 +1,6 @@
 #include "userInput.h"
 
-/* Parses .txt file and returns a valid matrix with all the data in the .txt file*/
+/* Parses txt/csv files and returns a valid matrix with all the data in the parsed file */
 matrix *extractData(char *fileName) {
     int rows = 0, cols = 0;
     matrix *data;
@@ -10,15 +10,12 @@ matrix *extractData(char *fileName) {
     return data;
 }
 
-/* Counts the number of rows and columns in the input file*/
-
+/* Counts the number of rows and columns in the input file */
 void countRowsAndCols(char *inputfile, int *rows, int *cols) {
     FILE *fp = fopen(inputfile, "r");
     int c = 0;
-
     if (fp == NULL)
         general_error();
-
     while (!feof(fp)) {
         c = fgetc(fp);
         if (c == '\n') {
@@ -39,10 +36,8 @@ void fillData(char *inputfile, matrix *data) {
     double val;
     char ch;
     FILE *fp = fopen(inputfile, "r");
-
     if (fp == NULL)
         general_error();
-
     while (EOF != (inc = fscanf(fp, "%lf%c", &val, &ch)) && inc == 2) {
         setElement(data, row, col, val);
         if (ch == ',') {
@@ -56,30 +51,30 @@ void fillData(char *inputfile, matrix *data) {
         general_error();
 }
 
-/* wam goal*/
+/* wam goal */
 void wamGoal(matrix *data, matrix **W) {
     *W = weightedAdjacencyMatrix(data);
 }
 
-/* ddg goal*/
+/* ddg goal */
 void ddgGoal(matrix *data, matrix **W, matrix **D) {
     wamGoal(data, W);
     *D = DiagonalDegreeMatrix(*W, 0);
 }
 
-/* lnorm goal*/
+/* lnorm goal */
 void lnormGoal(matrix *data, matrix **W, matrix **D, matrix **lNorm) {
     wamGoal(data, W);
     *D = DiagonalDegreeMatrix(*W, 1);
     *lNorm = normalizedGraphLaplacian(*W, *D);
 }
 
-/* jacobi goal*/
+/* jacobi goal */
 void jacobiGoal(matrix **A, matrix **V) {
     jacobiAlgo(A, V);
 }
 
-/* spk goal*/
+/* spk goal */
 void spkGoal(matrix *data, int *k, matrix **W, matrix **D, matrix **lNorm, matrix **V) {
     int rows;
     matrix *U;
@@ -100,7 +95,7 @@ void spkGoal(matrix *data, int *k, matrix **W, matrix **D, matrix **lNorm, matri
     renormalizeEachRow(*V);
 }
 
-/* function that runs the desired goal based on user's input*/
+/* Runs C supported goals according to the user input */
 void runGoalC(char *goal, matrix *data, matrix **W, matrix **D, matrix **lNorm, matrix **A, matrix **V) {
     matrix *res = NULL;
     if (strcmp(goal, "wam") == 0) {
