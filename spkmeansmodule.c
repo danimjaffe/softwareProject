@@ -114,7 +114,7 @@ PyInit_myspkmeans(void)
     return m;
 }
 
-/* Convert C matrix to python list*/
+/* Convert C matrix to python matrix*/
 static PyObject* cMatrixToPythonObject(matrix * mtx)
 {
     int i,j;
@@ -135,6 +135,7 @@ static PyObject* cMatrixToPythonObject(matrix * mtx)
 
 }
 
+/* Convert python matrix to python C matrix*/
 static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numOfColumns,double ***cMatrix){
     int i,j;
     for(i=0; i<numOfRows;i++){
@@ -144,6 +145,7 @@ static void convertPythonMatrixToCMatrix(PyObject *matrix,int numOfRows,int numO
     }
 }
 
+/* Convert C matrix to python list*/
 static PyObject* cMatrixToPythonObject1(int k,int numOfColumns, double ***centroidArray)
 {
     int i,j;
@@ -156,6 +158,7 @@ static PyObject* cMatrixToPythonObject1(int k,int numOfColumns, double ***centro
     return list;
 }
 
+/* Update centroids based on kmenas++ logic*/
 void update_centroids(double **centroids, double **data_points, int k, int cols, int rows, int max_iter, double eps) {
 
     int iteration_number = 0, epsilon_condition = 0;
@@ -205,6 +208,7 @@ void update_centroids(double **centroids, double **data_points, int k, int cols,
     free_matrix(new_centroids, k);
 }
 
+/* initialize matrix*/
 double **initialize_matrix(int rows, int cols) {
 
     double **a;
@@ -227,8 +231,8 @@ void free_matrix(double **matrix, int n_rows) {
     free(matrix);
 }
 
+/*finds the row index within the centroids matrix of the closest centroid to a given vector*/
 int find_closest_centroid(double **centroids, double *vector, int k, int cols) {
-    /*finds the row index within the centroids matrix of the closest centroid to a given vector*/
     double tempdistance;
     double min_distance = distance_between_vectors(centroids[0], vector, cols);
     int min_distance_index = 0, i;
@@ -244,8 +248,8 @@ int find_closest_centroid(double **centroids, double *vector, int k, int cols) {
 
 }
 
+/*calculates the distance between 2 vectors (only calcluates the sum of all squared deltas, without taking the kth root)*/
 double distance_between_vectors(double *vec1, double *vec2, int cols) {
-    /*calculates the distance between 2 vectors (only calcluates the sum of all squared deltas, without taking the kth root)*/
     double dis = 0.0;
     int i;
     for (i = 0; i < cols; i++) {
@@ -255,8 +259,8 @@ double distance_between_vectors(double *vec1, double *vec2, int cols) {
 
 }
 
+/*returns 1 if each of the centroids deltas are smaller than epsilon, 0 otherwise*/
 int check_if_smaller_than_epsion(double **centroids, double **new_centroids, int k, int cols, double eps) {
-    /*returns 1 if each of the centroids deltas are smaller than epsilon, 0 otherwise*/
     int i, epsilon_dis_counter = 0;
     double dis;
     for (i = 0; i < k; i++) {
